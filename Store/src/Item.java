@@ -1,15 +1,15 @@
 public class Item {
-    public int iD;
-    public String name;
-    public double price;
+    String iD;
+    String name;
+    double price;
 
-    public Item(int iD, String name, double price) {
+    public Item(String iD, String name, double price) {
         this.iD = iD;
         this.name = name;
         this.price = price;
     }
 
-    public int getiD() {
+    public String getiD() {
         return iD;
     }
 
