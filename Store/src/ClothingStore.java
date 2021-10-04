@@ -9,13 +9,13 @@ public class ClothingStore {
     public static void main(String[] args){
 
         ClothingStore store = new ClothingStore();
-        store.createItem("ID01","Addidas" , 1750);
+       // store.createItem("ID01","Addidas" , 1750);
         //store.buyItem("ID01",1);
         //store.createItem("ID002","Nike",250);
         //store.buyItem("ID002",4);
         //store.buyItem("ID002",3);
         store.printMainMenu();
-        store.mainMenuHandler();
+       store.mainMenuHandler();
 
 
         }
@@ -280,7 +280,7 @@ public class ClothingStore {
     // A method for checking if an array contains an element(if already exists)
     public boolean containsElement(Item item){
         for (Item i: items) {
-            if(i.getiD() == (item.getiD())){
+            if(i.getiD().equals(item.getiD())){
                 return true;
             }
         }
@@ -323,10 +323,10 @@ public class ClothingStore {
     // checks if item is valid
     public boolean isItemValid(String iD, String name, double price){
         //Empty iD
-        //if(!(iD > 0)){
-          //  System.out.println("Invalid data for item." + " (Wrong iD)");
-            //return false;
-        //}
+        if((iD.equals(null))) {
+            System.out.println("Invalid data for item." + " (Wrong iD)");
+            return false;
+        }
         //Empty Name
         if(name.length() == 0){
             System.out.println("Invalid data for item." + " (Wrong name)");
