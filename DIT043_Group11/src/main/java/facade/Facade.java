@@ -85,31 +85,31 @@ public class Facade {
     }
 
     public double getTotalProfit() {
-        return -1.0;
+        return store.totProfAll();
     }
 
     public String printItemTransactions(String itemID) {
-        return "";
+        return store.totInfoID(itemID);
     }
 
     public int getTotalUnitsSold() {
-        return -1;
+        return store.totCountAll();
     }
 
     public int getTotalTransactions() {
-        return -1;
+        return store.totPurchAll();
     }
 
     public double getProfit(String itemID) {
-        return -1.0;
+        return store.totProfID(itemID);
     }
 
     public int getUnitsSolds(String itemID) {
-        return -1;
+        return store.totCountID(itemID);
     }
 
     public String printAllTransactions() {
-        return "";
+        return store.printAllTransactions();
     }
 
     public String printWorseReviewedItems() {
@@ -145,6 +145,6 @@ public class Facade {
     }
 
     public String printMostProfitableItems() {
-        return "";
+        return store.findHighestSaleItem();
     }
 }

@@ -25,6 +25,8 @@ public class ClothingStore {
                 "1. Open Item options." + EOL +
                 "2. Open Review options" + EOL +
                 "3. Open Transaction History options." + EOL +
+                "4. Open Employee options." + EOL +
+                EOL +
 
                 "Type an option number: ");
 
@@ -48,7 +50,11 @@ public class ClothingStore {
             case 3:
                 System.out.println("You have chosen: Open Transaction History options.");
                 printTransactionHistoryOptions();
-                openTransactionHandler(); // find better solution that recursion
+                openTransactionHandler();
+                break;
+            case 4:
+                System.out.println("You have chosen: Open Employee options.");
+                printEmployeeMenu();
                 break;
             default:
                 System.out.print("Invalid option, Please try again: ");
@@ -68,6 +74,8 @@ public class ClothingStore {
                 "4. Buy an ShopOfSomething.Item." + EOL +
                 "5. Update an item’s name." + EOL +
                 "6. Update an item’s price." + EOL +
+                "7. Print a specific item." + EOL +
+                EOL +
 
                 "Type an option number: ");
     }
@@ -89,7 +97,7 @@ public class ClothingStore {
                     UserInput.SCANNER.nextLine();
                     System.out.println("What is your iD? ");
                     String iD = UserInput.readStr();
-                    createItem(iD, name, price);
+                    System.out.println(createItem(iD, name, price));
                     printOpenItemOptions();
                     break;
                 case 2:
@@ -131,6 +139,13 @@ public class ClothingStore {
                     updateItemPrice( iD, price);
                     printOpenItemOptions();
                     break;
+                case 7:
+                    System.out.println("You have chosen: Print a specific item.");
+                    System.out.println("itemID: ");
+                    iD = UserInput.readStr();
+                    System.out.println(printSpecificItem(iD));
+                    printOpenItemOptions();
+                    break;
                 default:
                     System.out.print("Invalid Option. Please try again: ");
             }
@@ -140,18 +155,19 @@ public class ClothingStore {
     public void printOpenReviewOptions() {
         String EOL = System.lineSeparator();
         System.out.print("-------------------------------------------\n" + EOL +
-                "Reviews options menu:\n" + EOL +
-                "0. Return to Main Menu.\n" + EOL +
-                "1. Create a review for an ShopOfSomething.Item.\n" + EOL +
-                "2. Print a specific review of an ShopOfSomething.Item.\n" + EOL +
-                "3. Print all reviews of an ShopOfSomething.Item.\n" + EOL +
-                "4. Print mean grade of an ShopOfSomething.Item\n" + EOL +
-                "5. Print all comments of an ShopOfSomething.Item.\n" + EOL +
-                "6. Print all registered reviews.\n" + EOL +
-                "7. Print item(s) with most reviews.\n" + EOL +
-                "8. Print item(s) with least reviews.\n" + EOL +
-                "9. Print item(s) with best mean review grade.\n" + EOL +
-                "10. Print item(s) with worst mean review grade.\n" + EOL +
+                "Reviews options menu: " + EOL +
+                "0. Return to Main Menu. " + EOL +
+                "1. Create a review for an ShopOfSomething.Item. " + EOL +
+                "2. Print a specific review of an ShopOfSomething.Item. " + EOL +
+                "3. Print all reviews of an ShopOfSomething.Item. " + EOL +
+                "4. Print mean grade of an ShopOfSomething.Item " + EOL +
+                "5. Print all comments of an ShopOfSomething.Item. " + EOL +
+                "6. Print all registered reviews. " + EOL +
+                "7. Print item(s) with most reviews. " + EOL +
+                "8. Print item(s) with least reviews. " + EOL +
+                "9. Print item(s) with best mean review grade. " + EOL +
+                "10. Print item(s) with worst mean review grade. " + EOL +
+                EOL +
 
                 "Type an option number: ");
     }
@@ -212,6 +228,7 @@ public class ClothingStore {
                 "6. Print the number of units sold of a specific item." + EOL +
                 "7. Print all transactions of a specific item." + EOL +
                 "8. Print item with highest profit." + EOL +
+                EOL +
 
                 "Type an option number: ");
     }
@@ -277,6 +294,26 @@ public class ClothingStore {
         }
     }
 
+    public void printEmployeeMenu() {
+        String EOL = System.lineSeparator();
+        System.out.println("Employee options menu: " + EOL +
+                "0. Return to Main Menu." + EOL +
+                "1. Create an employee (Regular Employee). " + EOL +
+                "2. Create an employee (Manager). " + EOL +
+                "3. Create an employee (Director). " + EOL +
+                "4. Create an employee (Intern). " + EOL +
+                "5. Remove an employee. " + EOL +
+                "6. Print specific employee. " + EOL +
+                "7. Print all registered employees. " + EOL +
+                "8. Print the total expense with net salary. " + EOL +
+                "9. Print all employees sorted by gross salary. " + EOL +
+                EOL +
+
+                "Type an option number:");
+
+    }
+   
+
 
     // A method for checking if an array contains an element(if already exists)
     public boolean containsElement(String item) {
@@ -301,16 +338,18 @@ public class ClothingStore {
     }
 
 
+
     //Prints a single item.
     public String printItem(String itemID) {
         Item item = findItem(itemID);
         if(item == null){
             return "ShopOfSomething.Item " + itemID + " was not registered yet.";
+        } else {
+            String iD = item.getiD();
+            String name = item.getName();
+            double price = item.getPrice();
+            return (iD + ": " + name + ". " + UserInput.decimalFormat(price) + " SEK");
         }
-        String iD = item.getiD();
-        String name = item.getName();
-        double price = item.getPrice();
-        return (iD + ": " + name + ". " + UserInput.decimalFormat(price) + " SEK");
     }
 
     // creates an item if the item is valid and iD does not exist already
@@ -376,14 +415,13 @@ public class ClothingStore {
         return ("ShopOfSomething.Item "+ iD + " was updated successfully.");
     }
     //Print a specific item's ID, price and name
-    public boolean printSpecificItem(String iD) {
+    public String printSpecificItem(String iD) {
         Item item = findItem( iD);
         if(item == null) {
-            System.out.println("ShopOfSomething.Item " + iD + " could not be found.");
-            return false;
+            return ("ShopOfSomething.Item " + iD + " could not be found.");
+
         }
-        printItem(item.getiD());
-        return true;
+        return printItem(item.getiD());
     }
     //Remove an item given its iD.
     public String removeItem(String iD) {
@@ -416,7 +454,7 @@ public class ClothingStore {
             totalSum = count * item.getPrice();
             System.out.println("Total price: " + UserInput.decimalFormat(totalSum));
         } else {
-            totalSum = ((4 * item.getPrice()) + ((count - 4) * (item.getPrice() * 0.7f)));
+            totalSum = ((4 * item.getPrice()) + ((count - 4) * (item.getPrice() * 0.7)));
             System.out.println("Total price with discount: " + UserInput.decimalFormat(totalSum));
         }
 
@@ -426,16 +464,16 @@ public class ClothingStore {
     public double totProfAll() {
         double profit = 0;
         for(Log l: history) {
-            profit += l.getPrice();
-        } return profit;
+            profit += Double.parseDouble(UserInput.decimalFormat(l.getPrice()));
+        } return Double.parseDouble(UserInput.decimalFormat(profit));
     }
     public double totProfID(String iD) {
         double profit = 0;
         for(Log l: history) {
             if (l.getiD().equals(iD)) {
-                profit += l.getPrice();
+                profit += Double.parseDouble(UserInput.decimalFormat(l.getPrice()));
             }
-        } return profit;
+        } return Double.parseDouble(UserInput.decimalFormat(profit));
     }
     public int totCountID(String iD) {
         int count = 0;
@@ -454,7 +492,7 @@ public class ClothingStore {
     public int totPurchAll() {
         return history.size();
     }
-    public void totInfoID(String iD) {
+    public String totInfoID(String iD) {
         boolean exists = false;
         for(Item item:items){
             if(item.getiD().equals(iD)){
@@ -463,8 +501,8 @@ public class ClothingStore {
             }
         }
         if(!exists) {
-            System.out.println("ShopOfSomething.Item "+ iD+" was not registered yet.");
-            return;
+            return ("ShopOfSomething.Item "+ iD+" was not registered yet.");
+
         }
 
 
@@ -479,45 +517,54 @@ public class ClothingStore {
                 purchases += 1;
             }
         }
+        String message = "";
         Item item = findItem(iD);
-        System.out.println("Transactions for item: " + iD + " " + item.getName() + " " + item.getPrice() + " SEK");
+        message += iD + ": " + item.getName() + ". " + UserInput.decimalFormat(item.getPrice()) + " SEK" + System.lineSeparator();
+        for (Log l: history) {
+            if(l.getiD().equals(iD)) {
+                message += iD + ": " + l.getCount() + " item(s). " + UserInput.decimalFormat(l.getPrice()) + " SEK" + System.lineSeparator();
+
+            }
+        }
+        //Item item = findItem(iD);
+        //message += iD + ": " + item.getName() + ". " + item.getPrice() + " SEK" + System.lineSeparator();
         if(purchases == 0){
-            System.out.println("No transactions have been registered for item "+iD+" yet.");
-            return;
+           message += ("No transactions have been registered for item "+iD+" yet.");
+
         }
         printProf(profit);
         printCount(count);
         printPurch(purchases);
+        return "Transactions for item: " + message;
     }
-    public void printProf(double profit) {
-        System.out.println("Total profit: " + profit + " SEK");
+    public String printProf(double profit) {
+        return ("Total profit: " + UserInput.decimalFormat(profit) + " SEK" + System.lineSeparator());
     }
-    public void printCount(int count) {
-        System.out.println("Total items sold: " + count + " units");
+    public String printCount(int count) {
+        return ("Total items sold: " + count + " units" + System.lineSeparator());
     }
-    public void printPurch(int purchases) {
-        System.out.println("Total purchases made: " + purchases + " transactions");
+    public String printPurch(int purchases) {
+        return ("Total purchases made: " + purchases + " transactions" + System.lineSeparator());
     }
-    public void printAllTransactions() {
-        System.out.println("All purchases made: ");
-        printProf(totProfAll());
-        printCount(totCountAll());
-        printPurch(totPurchAll());
-        System.out.println("------------------------------------");
+    public String printAllTransactions() {
+        String message = "All purchases made: " + System.lineSeparator() + printProf(totProfAll()) +
+                printCount(totCountAll()) + printPurch(totPurchAll()) + ("------------------------------------") +
+                System.lineSeparator();
+
         for(Log l: history){
-            l.printTransaction();
+            message += l.printTransaction();
         }
-        System.out.println("------------------------------------");
+
+        return message + ("------------------------------------") + System.lineSeparator();
+
     }
-    public void findHighestSaleItem() {
+    public String findHighestSaleItem() {
 
         if(items.size() == 0) {
-            System.out.println("No items registered yet.");
-            return;
+            return ("No items registered yet.");
         }
         if(history.size() == 0) {
-            System.out.println("No items were bought yet.");
-            return;
+            return ("No items were bought yet.");
         }
 
 
@@ -526,7 +573,7 @@ public class ClothingStore {
         for (Log l:history){
             iDs.add(l.getiD());
         }
-        
+
         double max = 0;
         //FIND MAX
         for(String iD:iDs) {
@@ -544,11 +591,16 @@ public class ClothingStore {
         }
 
 
-        System.out.println("Most profitable items:");
-        System.out.println("Total profit: " + max + " SEK");
+
         //Run loop incase of multiple max profits
         for(String iD:maxProfitableIDS){
-            printItem(iD);
+            System.out.println(" Most profitable items: ");
+            System.out.println(" Total profit: " + UserInput.decimalFormat(max) + " SEK");
+
+            return "Most profitable items: " + System.lineSeparator() +
+                    "Total profit: " + UserInput.decimalFormat(max) + " SEK" + System.lineSeparator() +
+                    printItem(iD) + System.lineSeparator();
         }
+        return null;
     }
 }

@@ -10,12 +10,12 @@ public class Log {
         this.count = count;
         this.price = price;
     }
-    public void printTransaction(){
-        System.out.println(String.valueOf(iD) +
-                " : " + String.valueOf(count) +
+    public String printTransaction(){
+        return (String.valueOf(iD) +
+                ": " + String.valueOf(count) +
                 " item(s). " +
-                String.valueOf(price) +
-                " SEK");
+                String.valueOf(UserInput.decimalFormat(price)) +
+                " SEK" + System.lineSeparator());
     }
 
     public String getiD() {
