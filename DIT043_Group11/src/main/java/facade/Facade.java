@@ -37,51 +37,51 @@ public class Facade {
     }
 
     public String reviewItem(String itemID, String reviewComment, int reviewGrade) {
-        return "";
+        return store.reviewItem(itemID, reviewComment, reviewGrade);
     }
 
     public String reviewItem(String itemID, int reviewGrade) {
-        return "";
+        return store.reviewItem(itemID, reviewGrade);
     }
 
     public String getItemCommentsPrinted(String itemID) {
-        return "";
+        return store.getItemCommentsPrinted(itemID);
     }
 
     public List<String> getItemComments(String itemID) {
-        return null;
+        return store.getItemComments(itemID);
     }
 
     public double getItemMeanGrade(String itemID) {
-        return -1.0;
+        return store.getItemMeanGrade(itemID);
     }
 
     public int getNumberOfReviews(String itemID) {
-        return -1;
+        return store.getNumberOfReviews(itemID);
     }
 
     public String getPrintedItemReview(String itemID, int reviewNumber) {
-        return "";
+        return store.getPrintedItemReview(itemID, reviewNumber);
     }
 
     public String getPrintedReviews(String itemID) {
-        return "";
+        return store.getPrintedReviews(itemID);
     }
 
     public String printMostReviewedItems() {
-        return "";
+        return store.printMostRevieweditemList();
     }
 
     public List<String> getMostReviewedItems() {
-        return null;
+        return store.getMostRevieweditemList();
     }
 
     public List<String> getLeastReviewedItems() {
-        return null;
+        return store.getLeastRevieweditemList();
     }
 
     public String printLeastReviewedItems() {
-        return "";
+        return store.printLeastRevieweditemList();
     }
 
     public double getTotalProfit() {
@@ -113,23 +113,23 @@ public class Facade {
     }
 
     public String printWorseReviewedItems() {
-        return "";
+        return store.printWorseReviewedItems();
     }
 
     public String printBestReviewedItems() {
-        return "";
+        return store.printBestReviewedItems();
     }
 
     public List<String> getWorseReviewedItems() {
-        return null;
+        return store.getWorseReviewedItems();
     }
 
     public List<String> getBestReviewedItems() {
-        return null;
+        return store.getBestReviewedItems();
     }
 
     public String printAllReviews() {
-        return "";
+        return store.printAllReviews();
     }
 
     public String updateItemName(String itemID, String newName) {

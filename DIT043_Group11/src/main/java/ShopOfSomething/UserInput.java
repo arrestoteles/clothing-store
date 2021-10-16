@@ -11,6 +11,9 @@ public class UserInput {
         df.setRoundingMode(RoundingMode.DOWN);
         return df.format(price);
     }
+    public static double truncateFormat(double mean) {
+        return (int)(mean*10)/10.0;
+    }
 
 
 

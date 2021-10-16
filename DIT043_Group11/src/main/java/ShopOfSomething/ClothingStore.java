@@ -2,6 +2,7 @@ package ShopOfSomething;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class ClothingStore {
@@ -337,8 +338,6 @@ public class ClothingStore {
         return message;
     }
 
-
-
     //Prints a single item.
     public String printItem(String itemID) {
         Item item = findItem(itemID);
@@ -603,4 +602,233 @@ public class ClothingStore {
         }
         return null;
     }
+
+    public String reviewItem(String itemID, String reviewComment, int reviewGrade) {
+        addReview(itemID, reviewGrade, reviewComment);
+        return "Your item review was registered successfully.";
+    }
+
+    public String reviewItem(String itemID, int reviewGrade) {
+        addReview(itemID, reviewGrade);
+        return "Your item review was registered successfully.";
+    }
+
+    public void addReview(String itemID, int reviewGrade, String reviewComment) {
+        if (reviewGrade < 1 || reviewGrade > 5) {
+            System.out.println("Invalid value for grade");
+        }
+        findItem(itemID).reviewList.add(new Review(itemID, reviewGrade, reviewComment));
+    }
+
+    public void addReview(String itemID, int reviewGrade) {
+        if (reviewGrade < 1 || reviewGrade > 5) {
+            System.out.println("Invalid value for grade");
+        }
+        findItem(itemID).reviewList.add(new Review(itemID, reviewGrade));
+    }
+
+    public String getItemCommentsPrinted(String itemID) {
+        String EOL = System.lineSeparator();
+        String message = "";
+        for (Item item : items) {
+            for (Review review : item.reviewList) {
+                message += review.getComment() + EOL;
+            }
+        }
+        return message;
+    }
+
+    public List<String> getItemComments(String itemID) {
+        List<String> commentList = new ArrayList<>();
+        Item item = findItem(itemID);
+        if (item.reviewList == null) {
+            return commentList;
+        }
+        for (Review review : item.reviewList) {
+            if (review.getComment() != null && !review.getComment().isEmpty()) {
+                commentList.add(review.getComment());
+            }
+        }
+        return commentList;
+    }
+
+    public double getItemMeanGrade(String itemID) {
+        double meanGrade = 0.00;
+        Item item = findItem(itemID);
+        for (Review review : item.reviewList) {
+            meanGrade += review.getGrade();
+        }
+        return UserInput.truncateFormat(meanGrade / item.reviewList.size());
+    }
+
+    public int getNumberOfReviews(String itemID) {
+        Item item = findItem(itemID);
+        return item.reviewList.size();
+    }
+
+    public String getPrintedItemReview(String itemID, int reviewNumber) {
+        Item item = findItem(itemID);
+        String currentReview = "";
+        currentReview += item.reviewList.get(reviewNumber - 1);
+        return currentReview;
+    }
+
+    public String getPrintedReviews(String itemID) {
+        String EOL = System.lineSeparator();
+        String reviewOutput = "";
+        Item item = findItem(itemID);
+        for (Review review : item.reviewList) {
+            reviewOutput += review + EOL;
+        }
+        return "ShopOfSomething.Review(s) for " + item + EOL + reviewOutput;
+    }
+
+
+    public String printMostRevieweditemList() {
+        String EOL = System.lineSeparator();
+        int max = 0;
+        for (Item item : items) {
+            if (item.reviewList.size() > max) {
+                max = item.reviewList.size();
+            }
+        }
+        String count = "Most reviews: " + max + " review(s) each." + EOL;
+        for (Item item : items) {
+            if (item.reviewList.size() == max) {
+                count += item + EOL;
+            }
+        }
+        return count;
+    }
+
+
+    public List<String> getMostRevieweditemList() {
+        int max = 0;
+        for (Item item : items) {
+            if (item.reviewList.size() > max) {
+                max = item.reviewList.size();
+            }
+        }
+        ArrayList<String> maxReviews = new ArrayList<>();
+        for (Item item : items) {
+            if (item.reviewList.size() == max) {
+                maxReviews.add(item.getiD());
+            }
+        }
+        return maxReviews;
+    }
+
+
+
+    public List<String> getLeastRevieweditemList() {
+        int min = Integer.MAX_VALUE;
+        for (Item item : items) {
+            if (item.reviewList.size() < min && item.reviewList.size() > 0) {
+                min = item.reviewList.size();
+            }
+        }
+        ArrayList<String> minReviews = new ArrayList<>();
+        for (Item item : items) {
+            if (item.reviewList.size() == min) {
+                minReviews.add(item.getiD());
+            }
+        }
+        return minReviews;
+    }
+
+    public String printLeastRevieweditemList() {
+        String EOL = System.lineSeparator();
+        int min = Integer.MAX_VALUE;
+        for (Item item : items) {
+            if (item.reviewList.size() < min && item.reviewList.size() > 0) {
+                min = item.reviewList.size();
+            }
+        }
+        String count = "Least reviews: " + min + " review(s) each." + EOL;
+        for (Item item : items) {
+            if (item.reviewList.size() == min) {
+                count += item + EOL;
+            }
+        }
+        return count;
+    }
+
+    public String printWorseReviewedItems() {
+        String EOL = System.lineSeparator();
+        StringBuilder sb = new StringBuilder();
+
+        String message = "Items with worst mean reviews:" + EOL;
+        double meanGrade = Double.MIN_VALUE;
+        String currentID;
+        System.out.println("kladdkaka");
+
+        for (Item item : items) {
+            System.out.println("kladdkaka");
+            if (meanGrade >= getItemMeanGrade(item.getiD())) {
+                meanGrade = getItemMeanGrade(item.getiD());
+                currentID = item.getiD() + ": " + item.getName() + ". " + UserInput.decimalFormat(item.getPrice()) + " SEK";
+                sb.append(EOL + currentID);
+            }
+        } return message + "Grade: " + meanGrade + sb + EOL;
+    }
+
+
+    public String printBestReviewedItems() {
+        String EOL = System.lineSeparator();
+        StringBuilder sb = new StringBuilder();
+
+        String message = "Items with best mean reviews:" + EOL;
+        double meanGrade = 0.00;
+        String currentID;
+
+        for (Item item : items) {
+            if (meanGrade <= getItemMeanGrade(item.getiD())) {
+                meanGrade = getItemMeanGrade(item.getiD());
+                currentID = item.getiD() + ": " + item.getName() + ". " + UserInput.decimalFormat(item.getPrice()) + " SEK";
+                sb.append(EOL + currentID);
+            }
+        } return message + "Grade: " + meanGrade + sb + EOL;
+    }
+
+
+    public List<String> getWorseReviewedItems() {
+        ArrayList<String> worstReviews = new ArrayList<>();
+        double max = 5.00;
+        for (Item item : items) {
+            double currentNum = getItemMeanGrade(item.getiD());
+            if (currentNum < max && currentNum != 0.00) {
+                max = currentNum;
+                worstReviews.add(item.getiD());
+            }
+        }
+        return worstReviews;
+    }
+
+
+    public List<String> getBestReviewedItems() {
+        ArrayList<String> bestReviews = new ArrayList<>();
+        double max = 0.00;
+        for (Item item : items) {
+            double currentNum = getItemMeanGrade(item.getiD());
+            if (currentNum >= max) {
+                bestReviews.add(item.getiD());
+                max = currentNum;
+            }
+        } return bestReviews;
+    }
+
+
+
+    public String printAllReviews() {
+        String EOL = System.lineSeparator();
+        String message = "All registered reviews:" + EOL +
+                "------------------------------------" + EOL;
+        for (Item item : items) {
+            if (!item.reviewList.isEmpty()) {
+                message += getPrintedReviews(item.getiD()) + "------------------------------------" + EOL;
+            }
+        }
+        return message;
+    }
 }
+

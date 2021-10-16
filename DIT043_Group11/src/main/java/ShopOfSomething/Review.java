@@ -1,21 +1,27 @@
 package ShopOfSomething;
 
 public class Review {
-    String iD;
-    int grade;
-    String comment;
 
-    //Constructor with optional comment
-    public Review(String iD, int grade, String comment) {
+    private String iD;
+    private int reviewGrade;
+    private String reviewComment;
+
+
+    //constructor1
+    public Review(String iD, int itemGrade) {
         this.iD = iD;
-        this.grade = grade;
-        this.comment = comment;
+        this.reviewGrade = itemGrade;
     }
 
-    //Constructor without optional comment
-    public Review(String iD, int grade) {
+    //constructor2
+    public Review(String iD, int itemGrade, String itemComment) {
         this.iD = iD;
-        this.grade = grade;
+        this.reviewGrade = itemGrade;
+        this.reviewComment = itemComment;
+    }
+
+    public String toString() {
+        return "Grade: " + this.reviewGrade + "." + this.reviewComment;
     }
 
     public String getiD() {
@@ -23,10 +29,22 @@ public class Review {
     }
 
     public int getGrade() {
-        return grade;
+        return reviewGrade;
     }
 
     public String getComment() {
-        return comment;
+        return reviewComment;
+    }
+
+    public void setiD(String iD) {
+        this.iD = iD;
+    }
+
+    public void setReviewGrade(int reviewGrade) {
+        this.reviewGrade = reviewGrade;
+    }
+
+    public void setReviewComment(String reviewComment) {
+        this.reviewComment = reviewComment;
     }
 }

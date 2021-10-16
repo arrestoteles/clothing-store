@@ -1,18 +1,32 @@
 package ShopOfSomething;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Item {
-    String iD;
-    String name;
-    double price;
-    ArrayList<Review> reviews = new ArrayList<Review>();
-    ArrayList<Log> transactions = new ArrayList<Log>();
+
+    private String iD;
+    private String name;
+    private double price;
+    public List<Review> reviewList = new ArrayList<>();
+
 
     public Item(String iD, String name, double price) {
         this.iD = iD;
         this.name = name;
         this.price = price;
+    }
+
+    // do we need this constructor?
+    public Item(String iD, String name, double price, ArrayList<Review> reviewList) {
+        this.iD = iD;
+        this.name = name;
+        this.price = price;
+        this.reviewList = reviewList;
+    }
+
+    public String toString() {
+        return this.iD +": " + this.name + ". " + UserInput.decimalFormat(this.price) + " SEK";
     }
 
     public String getiD() {
