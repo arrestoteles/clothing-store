@@ -7,8 +7,8 @@ import java.util.Set;
 
 public class ClothingStore {
 
-    ArrayList<Item> items = new ArrayList<Item>();
-    ArrayList<Log> history = new ArrayList<Log>();
+    ArrayList<Item> items = new ArrayList<>();
+    ArrayList<Log> history = new ArrayList<>();
 
     public static void main(String[] args){
 
@@ -39,12 +39,12 @@ public class ClothingStore {
                 System.out.println("You have chosen: Close system.");
                 System.exit(0);
             case 1:
-                System.out.println("You have chosen: Open ShopOfSomething.Item options.");
+                System.out.println("You have chosen: Open Item options.");
                 printOpenItemOptions();
                 optionItemHandler();
                 break;
             case 2:
-                System.out.println("You have chosen: Open ShopOfSomething.Review options.");
+                System.out.println("You have chosen: Open Review options.");
                 printOpenReviewOptions();
                 openReviewHandler();
                 break;
@@ -67,12 +67,12 @@ public class ClothingStore {
     public void printOpenItemOptions() {
         String EOL = System.lineSeparator();
         System.out.print("-------------------------------------------" + EOL +
-                "ShopOfSomething.Item options menu: " + EOL +
+                "Item options menu: " + EOL +
                 "0. Return to Main Menu." + EOL +
-                "1. Create an ShopOfSomething.Item." + EOL +
-                "2. Remove an ShopOfSomething.Item." + EOL +
+                "1. Create an Item." + EOL +
+                "2. Remove an Item." + EOL +
                 "3. Print all registered Items." + EOL +
-                "4. Buy an ShopOfSomething.Item." + EOL +
+                "4. Buy an Item." + EOL +
                 "5. Update an item’s name." + EOL +
                 "6. Update an item’s price." + EOL +
                 "7. Print a specific item." + EOL +
@@ -90,7 +90,7 @@ public class ClothingStore {
                     mainMenuHandler();
                     break;
                 case 1:
-                    System.out.println("You have chosen: Create an ShopOfSomething.Item.");
+                    System.out.println("You have chosen: Create an Item.");
                     System.out.println("What is the name of the item? ");
                     String name = UserInput.readStr();
                     System.out.println("What is the price? ");
@@ -102,7 +102,7 @@ public class ClothingStore {
                     printOpenItemOptions();
                     break;
                 case 2:
-                    System.out.println("You have chosen: Remove an ShopOfSomething.Item.");
+                    System.out.println("You have chosen: Remove an Item.");
                     System.out.println("What item do you want to remove? ");
                     String remove = UserInput.readStr();
                     removeItem(remove);
@@ -114,7 +114,7 @@ public class ClothingStore {
                     printOpenItemOptions();
                     break;
                 case 4:
-                    System.out.println("You have chosen: Buy an ShopOfSomething.Item. ");
+                    System.out.println("You have chosen: Buy an Item. ");
                     System.out.println("What item do you want to buy? ");
                     String buyID = UserInput.readStr();
                     System.out.println("How many do you want to buy? ");
@@ -124,18 +124,18 @@ public class ClothingStore {
                     break;
                 case 5:
                     System.out.println("You have chosen: Update an item's name.");
-                    System.out.println("ShopOfSomething.Item iD: ");
+                    System.out.println("Item iD: ");
                     iD = UserInput.readStr();
-                    System.out.println("ShopOfSomething.Item name: ");
+                    System.out.println("Item name: ");
                     name = UserInput.readStr();
                     updateItemName( iD, name);
                     printOpenItemOptions();
                     break;
                 case 6:
                     System.out.println("You have chosen: Update an item's price.");
-                    System.out.println("ShopOfSomething.Item iD: ");
+                    System.out.println("Item iD: ");
                     iD = UserInput.readStr();
-                    System.out.println("ShopOfSomething.Item price: ");
+                    System.out.println("Item price: ");
                     price = UserInput.readDouble();
                     updateItemPrice( iD, price);
                     printOpenItemOptions();
@@ -158,11 +158,11 @@ public class ClothingStore {
         System.out.print("-------------------------------------------\n" + EOL +
                 "Reviews options menu: " + EOL +
                 "0. Return to Main Menu. " + EOL +
-                "1. Create a review for an ShopOfSomething.Item. " + EOL +
-                "2. Print a specific review of an ShopOfSomething.Item. " + EOL +
-                "3. Print all reviews of an ShopOfSomething.Item. " + EOL +
-                "4. Print mean grade of an ShopOfSomething.Item " + EOL +
-                "5. Print all comments of an ShopOfSomething.Item. " + EOL +
+                "1. Create a review for an Item. " + EOL +
+                "2. Print a specific review of an Item. " + EOL +
+                "3. Print all reviews of an Item. " + EOL +
+                "4. Print mean grade of an Item " + EOL +
+                "5. Print all comments of an Item. " + EOL +
                 "6. Print all registered reviews. " + EOL +
                 "7. Print item(s) with most reviews. " + EOL +
                 "8. Print item(s) with least reviews. " + EOL +
@@ -181,19 +181,19 @@ public class ClothingStore {
                 mainMenuHandler();
                 break;
             case 1:
-                System.out.println("You have chosen: Create a review for an ShopOfSomething.Item.");
+                System.out.println("You have chosen: Create a review for an Item.");
                 break;
             case 2:
-                System.out.println("You have chosen: Print a specific review of an ShopOfSomething.Item.");
+                System.out.println("You have chosen: Print a specific review of an Item.");
                 break;
             case 3:
-                System.out.println("You have chosen: Print all reviews of an ShopOfSomething.Item");
+                System.out.println("You have chosen: Print all reviews of an Item");
                 break;
             case 4:
-                System.out.println("You have chosen: Print mean grade of an ShopOfSomething.Item");
+                System.out.println("You have chosen: Print mean grade of an Item");
                 break;
             case 5:
-                System.out.println("You have chosen: Print all comments of an ShopOfSomething.Item");
+                System.out.println("You have chosen: Print all comments of an Item");
                 break;
             case 6:
                 System.out.println("You have chosen: Print all registered reviews.");
@@ -244,18 +244,18 @@ public class ClothingStore {
                     break;
                 case 1:
                     System.out.println("You have chosen: Print total profit from all item purchases.");
-                    printProf(totProfAll());
+                    printProf(getTotalProfit());
                     printTransactionHistoryOptions();
                     break;
                 case 2:
                     System.out.println("You have chosen: Print total units sold from all item purchases");
-                    printCount(totCountAll());
+                    printCount(getTotalUnitsSold());
                     printTransactionHistoryOptions();
 
                     break;
                 case 3:
                     System.out.println("You have chosen: Print the total number of item transactions made");
-                    printPurch(totPurchAll());
+                    printPurch(getTotalTransactions());
                     printTransactionHistoryOptions();
                     break;
                 case 4:
@@ -265,28 +265,28 @@ public class ClothingStore {
                     break;
                 case 5:
                     System.out.println("You have chosen: Print the total profit of a specific item.");
-                    System.out.println("ShopOfSomething.Item iD: ");
+                    System.out.println("Item iD: ");
                     String iD = UserInput.readStr();
-                    printProf(totProfID(iD));
+                    printProf(getProfit(iD));
                     printTransactionHistoryOptions();
                     break;
                 case 6:
                     System.out.println("You have chosen: Print the number of units sold of a specific item.");
-                    System.out.println("ShopOfSomething.Item iD: ");
+                    System.out.println("Item iD: ");
                     iD = UserInput.readStr();
-                    printCount(totCountID(iD));
+                    printCount(getUnitsSolds(iD));
                     printTransactionHistoryOptions();
                     break;
                 case 7:
                     System.out.println("You have chosen: Print all transactions of a specific item.");
-                    System.out.println("ShopOfSomething.Item iD: ");
+                    System.out.println("Item iD: ");
                     iD = UserInput.readStr();
-                    totInfoID(iD);
+                    printItemTransactions(iD);
                     printTransactionHistoryOptions();
                     break;
                 case 8:
                     System.out.println("You have chosen: Print item with highest profit.");
-                    findHighestSaleItem();
+                    printMostProfitableItems();
                     printTransactionHistoryOptions();
                     break;
                 default:
@@ -317,7 +317,7 @@ public class ClothingStore {
 
 
     // A method for checking if an array contains an element(if already exists)
-    public boolean containsElement(String item) {
+    public boolean containsItem(String item) {
         for (Item i : items) {
             if(i.getiD().equals(item)) {
                 return true;
@@ -342,7 +342,7 @@ public class ClothingStore {
     public String printItem(String itemID) {
         Item item = findItem(itemID);
         if(item == null){
-            return "ShopOfSomething.Item " + itemID + " was not registered yet.";
+            return "Item " + itemID + " was not registered yet.";
         } else {
             String iD = item.getiD();
             String name = item.getName();
@@ -361,17 +361,19 @@ public class ClothingStore {
 
         Item item = new Item(iD, name, price);
 
-        if(containsElement(item.getiD())){ // if iD already exists
-            String message = "ShopOfSomething.Item " + iD + " already exist";
+        if(containsItem(item.getiD())){ // if iD already exists
+            String message = "Item " + iD + " already exist";
             return message;
         }
 
         items.add(item);
         System.out.println("Item:");
         System.out.println(iD);
-        return ("ShopOfSomething.Item " + iD + " was registered successfully.");
+        return ("Item " + iD + " was registered successfully.");
         //return message;
     }
+
+
     // checks if item is valid
     public boolean isItemValid(String iD, String name, double price) {
         //Empty iD
@@ -392,45 +394,53 @@ public class ClothingStore {
         return true;
 
     }
+
+
     //update item price and name.
     public String updateItemName(String iD, String name) {
         Item item = findItem(iD);
         if(item == null) {
-            return ("ShopOfSomething.Item " + iD + " was not registered yet.");
+            return ("Item " + iD + " was not registered yet.");
         }else if(name.isEmpty()){
             return "Invalid data for item.";
         }
         item.updateItem(name, item.getPrice());
-        return ("ShopOfSomething.Item " + iD +" was updated successfully.");
+        return ("Item " + iD +" was updated successfully.");
     }
+
+
     public String updateItemPrice(String iD, double price) {
         Item item = findItem( iD);
         if(item == null) {
-            return ("ShopOfSomething.Item " + iD + " was not registered yet.");
+            return ("Item " + iD + " was not registered yet.");
         } else if(price <= 0){
             return "Invalid data for item.";
         }
         item.updateItem(item.getName(), price);
-        return ("ShopOfSomething.Item "+ iD + " was updated successfully.");
+        return ("Item "+ iD + " was updated successfully.");
     }
+
+
     //Print a specific item's ID, price and name
     public String printSpecificItem(String iD) {
         Item item = findItem( iD);
         if(item == null) {
-            return ("ShopOfSomething.Item " + iD + " could not be found.");
+            return ("Item " + iD + " could not be found.");
 
         }
         return printItem(item.getiD());
     }
+
+
     //Remove an item given its iD.
     public String removeItem(String iD) {
         Item item = findItem( iD);
         if(item == null) {
-            return ("ShopOfSomething.Item " + iD + " could not be removed.");
+            return ("Item " + iD + " could not be removed.");
 
         }
         items.remove(item);
-        return ("ShopOfSomething.Item " + iD + " was successfully removed.");
+        return ("Item " + iD + " was successfully removed.");
 
     }
     public Item findItem(String iD ) {
@@ -445,7 +455,7 @@ public class ClothingStore {
     public double buyItem(String iD, int count) {
         Item item = findItem(iD);
         if (item == null) {
-            System.out.println("ShopOfSomething.Item " + iD + " could not be found.");
+            System.out.println("Item " + iD + " could not be found.");
             return -1;
         }
         double totalSum;
@@ -460,13 +470,13 @@ public class ClothingStore {
         history.add(new Log(item.getiD(), count, totalSum));
         return Double.parseDouble(UserInput.decimalFormat(totalSum));
     }
-    public double totProfAll() {
+    public double getTotalProfit() {
         double profit = 0;
         for(Log l: history) {
             profit += Double.parseDouble(UserInput.decimalFormat(l.getPrice()));
         } return Double.parseDouble(UserInput.decimalFormat(profit));
     }
-    public double totProfID(String iD) {
+    public double getProfit(String iD) {
         double profit = 0;
         for(Log l: history) {
             if (l.getiD().equals(iD)) {
@@ -474,7 +484,7 @@ public class ClothingStore {
             }
         } return Double.parseDouble(UserInput.decimalFormat(profit));
     }
-    public int totCountID(String iD) {
+    public int getUnitsSolds(String iD) {
         int count = 0;
         for(Log l: history) {
             if (l.getiD().equals(iD)) {
@@ -482,16 +492,16 @@ public class ClothingStore {
             }
         } return count;
     }
-    public int totCountAll() {
+    public int getTotalUnitsSold() {
         int count = 0;
         for(Log l: history) {
             count += l.getCount();
         } return count;
     }
-    public int totPurchAll() {
+    public int getTotalTransactions() {
         return history.size();
     }
-    public String totInfoID(String iD) {
+    public String printItemTransactions(String iD) {
         boolean exists = false;
         for(Item item:items){
             if(item.getiD().equals(iD)){
@@ -500,7 +510,7 @@ public class ClothingStore {
             }
         }
         if(!exists) {
-            return ("ShopOfSomething.Item "+ iD+" was not registered yet.");
+            return ("Item "+ iD+" was not registered yet.");
 
         }
 
@@ -546,8 +556,8 @@ public class ClothingStore {
         return ("Total purchases made: " + purchases + " transactions" + System.lineSeparator());
     }
     public String printAllTransactions() {
-        String message = "All purchases made: " + System.lineSeparator() + printProf(totProfAll()) +
-                printCount(totCountAll()) + printPurch(totPurchAll()) + ("------------------------------------") +
+        String message = "All purchases made: " + System.lineSeparator() + printProf(getTotalProfit()) +
+                printCount(getTotalUnitsSold()) + printPurch(getTotalTransactions()) + ("------------------------------------") +
                 System.lineSeparator();
 
         for(Log l: history){
@@ -557,7 +567,7 @@ public class ClothingStore {
         return message + ("------------------------------------") + System.lineSeparator();
 
     }
-    public String findHighestSaleItem() {
+    public String printMostProfitableItems() {
 
         if(items.size() == 0) {
             return ("No items registered yet.");
@@ -576,15 +586,15 @@ public class ClothingStore {
         double max = 0;
         //FIND MAX
         for(String iD:iDs) {
-            if(totProfID(iD) > max) {
-                max = totProfID(iD);
+            if(getProfit(iD) > max) {
+                max = getProfit(iD);
             }
         }
 
         ArrayList<String> maxProfitableIDS = new ArrayList<>();
         //IF MULTIPLE MAX PROFIT ITEMS > SAVE ALL
         for(String iD:iDs) {
-            if(totProfID(iD) == max) {
+            if(getProfit(iD) == max) {
                 maxProfitableIDS.add(iD);
             }
         }
@@ -680,11 +690,11 @@ public class ClothingStore {
         for (Review review : item.reviewList) {
             reviewOutput += review + EOL;
         }
-        return "ShopOfSomething.Review(s) for " + item + EOL + reviewOutput;
+        return "Review(s) for " + item + EOL + reviewOutput;
     }
 
 
-    public String printMostRevieweditemList() {
+    public String printMostReviewedItems() {
         String EOL = System.lineSeparator();
         int max = 0;
         for (Item item : items) {
@@ -702,7 +712,7 @@ public class ClothingStore {
     }
 
 
-    public List<String> getMostRevieweditemList() {
+    public List<String> getMostReviewedItems() {
         int max = 0;
         for (Item item : items) {
             if (item.reviewList.size() > max) {
@@ -720,7 +730,7 @@ public class ClothingStore {
 
 
 
-    public List<String> getLeastRevieweditemList() {
+    public List<String> getLeastReviewedItems() {
         int min = Integer.MAX_VALUE;
         for (Item item : items) {
             if (item.reviewList.size() < min && item.reviewList.size() > 0) {
@@ -736,7 +746,7 @@ public class ClothingStore {
         return minReviews;
     }
 
-    public String printLeastRevieweditemList() {
+    public String printLeastReviewedItems() {
         String EOL = System.lineSeparator();
         int min = Integer.MAX_VALUE;
         for (Item item : items) {

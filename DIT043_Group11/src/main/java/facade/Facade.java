@@ -1,11 +1,12 @@
 package facade;
 
 import ShopOfSomething.ClothingStore;
+
 import java.util.List;
+import java.util.Map;
 
 public class Facade {
 
-    //ArrayList<Item> items = new ArrayList<>();
     ClothingStore store = new ClothingStore();
 
     // This class only has the skeleton of the methods used by the test.
@@ -16,7 +17,7 @@ public class Facade {
 
     }
 
-    public String createItem(String itemID, String itemName, double unitPrice) {
+    public String createItem(String itemID, String itemName, double unitPrice){
         return store.createItem(itemID, itemName, unitPrice);
     }
 
@@ -29,7 +30,7 @@ public class Facade {
     }
 
     public boolean containsItem(String itemID) {
-        return store.containsElement(itemID);
+        return store.containsItem(itemID);
     }
 
     public double buyItem(String itemID, int amount) {
@@ -69,43 +70,43 @@ public class Facade {
     }
 
     public String printMostReviewedItems() {
-        return store.printMostRevieweditemList();
+        return store.printMostReviewedItems();
     }
 
     public List<String> getMostReviewedItems() {
-        return store.getMostRevieweditemList();
+        return store.getMostReviewedItems();
     }
 
     public List<String> getLeastReviewedItems() {
-        return store.getLeastRevieweditemList();
+        return store.getLeastReviewedItems();
     }
 
     public String printLeastReviewedItems() {
-        return store.printLeastRevieweditemList();
+        return store.printLeastReviewedItems();
     }
 
     public double getTotalProfit() {
-        return store.totProfAll();
+        return store.getTotalProfit();
     }
 
     public String printItemTransactions(String itemID) {
-        return store.totInfoID(itemID);
+        return store.printItemTransactions(itemID);
     }
 
     public int getTotalUnitsSold() {
-        return store.totCountAll();
+        return store.getTotalUnitsSold();
     }
 
     public int getTotalTransactions() {
-        return store.totPurchAll();
+        return store.getTotalTransactions();
     }
 
     public double getProfit(String itemID) {
-        return store.totProfID(itemID);
+        return store.getProfit(itemID);
     }
 
     public int getUnitsSolds(String itemID) {
-        return store.totCountID(itemID);
+        return store.getUnitsSolds(itemID);
     }
 
     public String printAllTransactions() {
@@ -145,6 +146,83 @@ public class Facade {
     }
 
     public String printMostProfitableItems() {
-        return store.findHighestSaleItem();
+        return store.printMostProfitableItems();
+    }
+
+    public String createEmployee(String employeeID, String employeeName, double grossSalary) throws Exception {
+        return "";
+    }
+
+    public String printEmployee(String employeeID) throws Exception {
+        return "";
+    }
+
+    public String createEmployee(String employeeID, String employeeName, double grossSalary, String degree) throws Exception {
+        return "";
+    }
+
+    public String createEmployee(String employeeID, String employeeName, double grossSalary, int gpa) throws Exception {
+        return "";
+    }
+
+    public double getNetSalary(String employeeID) throws Exception {
+        return -1.0;
+    }
+
+    public String createEmployee(String employeeID, String employeeName, double grossSalary, String degree, String dept) throws Exception {
+        return "";
+    }
+
+    public String removeEmployee(String empID) throws Exception {
+        return "";
+    }
+
+    public String printAllEmployees() throws Exception {
+        return "";
+    }
+
+    public double getTotalNetSalary() throws Exception {
+        return -1.0;
+    }
+
+    public String printSortedEmployees() throws Exception {
+        return "";
+    }
+
+    public String updateEmployeeName(String empID, String newName) throws Exception {
+        return "";
+    }
+
+    public String updateInternGPA(String empID, int newGPA) throws Exception {
+        return "";
+    }
+
+    public String updateManagerDegree(String empID, String newDegree) throws Exception {
+        return "";
+    }
+
+    public String updateDirectorDept(String empID, String newDepartment) throws Exception {
+        return "";
+    }
+
+    public String updateGrossSalary(String empID, double newSalary) throws Exception {
+        return "";
+    }
+
+    public Map<String, Integer> mapEachDegree() throws Exception {
+        return null;
+    }
+
+    public String promoteToManager(String empID, String degree) throws Exception {
+        return "";
+
+    }
+
+    public String promoteToDirector(String empID, String degree, String department) throws Exception {
+        return "";
+    }
+
+    public String promoteToIntern(String empID, int gpa) throws Exception {
+        return "";
     }
 }

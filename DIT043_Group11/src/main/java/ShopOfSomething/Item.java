@@ -8,7 +8,7 @@ public class Item {
     private String iD;
     private String name;
     private double price;
-    public List<Review> reviewList = new ArrayList<>();
+    public List<ShopOfSomething.Review> reviewList = new ArrayList<>();
 
 
     public Item(String iD, String name, double price) {
@@ -18,7 +18,7 @@ public class Item {
     }
 
     // do we need this constructor?
-    public Item(String iD, String name, double price, ArrayList<Review> reviewList) {
+    public Item(String iD, String name, double price, ArrayList<ShopOfSomething.Review> reviewList) {
         this.iD = iD;
         this.name = name;
         this.price = price;
@@ -26,7 +26,7 @@ public class Item {
     }
 
     public String toString() {
-        return this.iD +": " + this.name + ". " + UserInput.decimalFormat(this.price) + " SEK";
+        return this.iD +": " + this.name + ". " + ShopOfSomething.UserInput.decimalFormat(this.price) + " SEK";
     }
 
     public String getiD() {
