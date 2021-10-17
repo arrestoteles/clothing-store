@@ -53,7 +53,7 @@ public class Epic4AlternativeTests {
     @Test
     public void shouldPrintErrorForNoTransactions(){
         String itemID = "ID1";
-        String expectedNoItemMsg = "ShopOfSomething.Item ID1 was not registered yet.";
+        String expectedNoItemMsg = "Item ID1 was not registered yet.";
         assertEquals(expectedNoItemMsg, facade.printItemTransactions(itemID));
 
         facade.createItem(itemID, "Black T-shirt", 150.99);

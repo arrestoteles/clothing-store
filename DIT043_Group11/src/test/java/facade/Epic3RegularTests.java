@@ -92,15 +92,15 @@ public class Epic3RegularTests {
     public void shouldPrintAllReviews(){
         String expectedResult = "All registered reviews:"            + TestResources.EOL +
                 "------------------------------------"               + TestResources.EOL +
-                "ShopOfSomething.Review(s) for ID1: Black T-shirt. 150.99 SEK"       + TestResources.EOL +
+                "Review(s) for ID1: Black T-shirt. 150.99 SEK"       + TestResources.EOL +
                 "Grade: 4.Good material for the price."              + TestResources.EOL +
                 "Grade: 5."                                          + TestResources.EOL +
                 "Grade: 4.Great item but could be better."           + TestResources.EOL +
                 "------------------------------------"               + TestResources.EOL +
-                "ShopOfSomething.Review(s) for ID3: High heels. 450.20 SEK"          + TestResources.EOL +
+                "Review(s) for ID3: High heels. 450.20 SEK"          + TestResources.EOL +
                 "Grade: 3.They are less comfortable than I thought." + TestResources.EOL +
                 "------------------------------------"               + TestResources.EOL +
-                "ShopOfSomething.Review(s) for ID5: Leather jacket. 1200.00 SEK"     + TestResources.EOL +
+                "Review(s) for ID5: Leather jacket. 1200.00 SEK"     + TestResources.EOL +
                 "Grade: 1.Not worth the price."                      + TestResources.EOL +
                 "Grade: 2.The delivery took too long."               + TestResources.EOL +
                 "Grade: 2."                                          + TestResources.EOL +
@@ -115,7 +115,7 @@ public class Epic3RegularTests {
         expectedComments.add("Good material for the price.");
         expectedComments.add("Great item but could be better.");
 
-        // ShopOfSomething.Item ID1 has only two comments written by reviews.
+        // Item ID1 has only two comments written by reviews.
         // Reviews with empty comments are not added when retrieving the
         // However, ID1 has a total of 3 reviews made.
         List<String> actualComments = facade.getItemComments(itemID);
@@ -131,7 +131,7 @@ public class Epic3RegularTests {
     @Test
     public void shouldPrintReviewsFromItem(){
         String itemID1 = "ID1";
-        String expectedPrintedReviews = "ShopOfSomething.Review(s) for ID1: Black T-shirt. 150.99 SEK" + TestResources.EOL +
+        String expectedPrintedReviews = "Review(s) for ID1: Black T-shirt. 150.99 SEK" + TestResources.EOL +
                         "Grade: 4.Good material for the price." + TestResources.EOL +
                         "Grade: 5." + TestResources.EOL +
                         "Grade: 4.Great item but could be better." + TestResources.EOL;

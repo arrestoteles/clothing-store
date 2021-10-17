@@ -39,7 +39,7 @@ public class Epic2RegularTests {
         double price = 100.00;
 
         // Verify if the operation worked.
-        String expectedOperationResult = "ShopOfSomething.Item ID2 was registered successfully.";
+        String expectedOperationResult = "Item ID2 was registered successfully.";
         String actualOperationResult = facade.createItem(itemID, itemName, price);
         assertEquals(expectedOperationResult, actualOperationResult);
 
@@ -53,7 +53,7 @@ public class Epic2RegularTests {
     @Test
     public void shouldRemoveItem(){
         // Verifies the attempt to remove a registered item
-        String expectedMessage = "ShopOfSomething.Item ID1 was successfully removed.";
+        String expectedMessage = "Item ID1 was successfully removed.";
         String itemID = "ID1";
         assertEquals(expectedMessage, facade.removeItem(itemID));
         assertFalse(facade.containsItem(itemID));
@@ -86,7 +86,7 @@ public class Epic2RegularTests {
 
         assertEquals(oldName, facade.printItem(itemID));
 
-        assertEquals("ShopOfSomething.Item ID1 was updated successfully.", facade.updateItemName(itemID, "T-shirt"));
+        assertEquals("Item ID1 was updated successfully.", facade.updateItemName(itemID, "T-shirt"));
 
         String expectedUpdate = "ID1: T-shirt. 150.99 SEK";
         assertEquals(expectedUpdate, facade.printItem(itemID));
@@ -100,7 +100,7 @@ public class Epic2RegularTests {
 
         assertEquals(oldPrice, facade.printItem(itemID));
 
-        assertEquals("ShopOfSomething.Item ID1 was updated successfully.", facade.updateItemPrice(itemID, 50.00));
+        assertEquals("Item ID1 was updated successfully.", facade.updateItemPrice(itemID, 50.00));
 
         String expectedUpdate = "ID1: Black T-shirt. 50.00 SEK";
         assertEquals(expectedUpdate, facade.printItem(itemID));

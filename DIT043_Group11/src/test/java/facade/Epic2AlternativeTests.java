@@ -39,14 +39,14 @@ public class Epic2AlternativeTests {
     public void shouldNotCrashWhenRemovingInvalidItems(){
         // Verifies the attempt to remove a non-existing item
         String itemID = "ID1";
-        String expectedResult = "ShopOfSomething.Item ID1 could not be removed.";
+        String expectedResult = "Item ID1 could not be removed.";
         assertFalse(facade.containsItem(itemID));
         assertEquals(expectedResult, facade.removeItem(itemID));
     }
 
     @Test
     public void shouldPrintErrorWhenNoItemRegistered(){
-        String expectedOutput = "ShopOfSomething.Item ID1 was not registered yet.";
+        String expectedOutput = "Item ID1 was not registered yet.";
         String actualOutput = facade.printItem("ID1");
 
         assertEquals(expectedOutput, actualOutput);
@@ -62,7 +62,7 @@ public class Epic2AlternativeTests {
     @Test
     public void shouldPrintErrorWhenInvalidUpdate(){
         String itemID = "ID1";
-        String expectedNotRegistered = "ShopOfSomething.Item " + itemID + " was not registered yet.";
+        String expectedNotRegistered = "Item " + itemID + " was not registered yet.";
         String expectedInvalidData = "Invalid data for item.";
 
         assertEquals(expectedNotRegistered, facade.updateItemPrice(itemID, -5.0));

@@ -32,7 +32,7 @@ public class Epic3AlternateTests {
     @Test
     public void shouldPrintErrorForInvalidReview(){
         String itemID = "ID1";
-        String expectedErrorMsg = "ShopOfSomething.Item ID1 not found.";
+        String expectedErrorMsg = "Item ID1 not found.";
         String expectedGradeError = "Grade values must be between 1 and 5.";
 
         // Checking messsages for non existing item.
@@ -53,7 +53,7 @@ public class Epic3AlternateTests {
         String itemID = "ID1";
         facade.createItem(itemID, "Black T-shirt", 150.99);
 
-        // ShopOfSomething.Item ID1 has no comments or reviews.
+        // Item ID1 has no comments or reviews.
         List<String> actualComments = facade.getItemComments(itemID);
 
         assertTrue(actualComments.isEmpty());
@@ -66,12 +66,12 @@ public class Epic3AlternateTests {
     @Test
     public void shouldPrintErrorForEmptyReviews(){
         String itemID2 = "ID2";
-        String expectedNoItem = "ShopOfSomething.Item ID2 was not registered yet.";
+        String expectedNoItem = "Item ID2 was not registered yet.";
         String actualOperation = facade.getPrintedReviews(itemID2);
         assertEquals(expectedNoItem, actualOperation);
 
         facade.createItem(itemID2, "Winter jacket", 999.50);
-        String expectedNonReviewed = "ShopOfSomething.Review(s) for ID2: Winter jacket. 999.50 SEK" + TestResources.EOL +
+        String expectedNonReviewed = "Review(s) for ID2: Winter jacket. 999.50 SEK" + TestResources.EOL +
                 "The item Winter jacket has not been reviewed yet.";
         String actualNonReviewed = facade.getPrintedReviews(itemID2);
         assertEquals(expectedNonReviewed, actualNonReviewed);
@@ -82,7 +82,7 @@ public class Epic3AlternateTests {
         String itemID = "ID5";
         facade.createItem(itemID, "Leather jacket", 1200.00);
 
-        String expectedReview1 = "ShopOfSomething.Item Leather jacket has not been reviewed yet.";
+        String expectedReview1 = "Item Leather jacket has not been reviewed yet.";
         assertEquals(expectedReview1, facade.getPrintedItemReview(itemID, 0));
         assertEquals(expectedReview1, facade.getPrintedItemReview(itemID, 1));
 
