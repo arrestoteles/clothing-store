@@ -1,10 +1,12 @@
 package facade;
 
+import ShopOfSomething.controllers.EmployeeController;
 import ShopOfSomething.controllers.ItemController;
 import ShopOfSomething.controllers.ReviewController;
 import ShopOfSomething.controllers.TransactionController;
 import ShopOfSomething.models.Item;
 import ShopOfSomething.models.Transaction;
+import ShopOfSomething.models.employees.Employee;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +17,7 @@ public class Facade {
     private ItemController items;
     private TransactionController transactions;
     private ReviewController reviews;
+    private EmployeeController employees;
 
 
     // This class only has the skeleton of the methods used by the test.
@@ -24,9 +27,11 @@ public class Facade {
     public Facade(){
         ArrayList<Item> items = new ArrayList<>();
         ArrayList<Transaction> transactionhistory = new ArrayList<>();
+        ArrayList<Employee> employees = new ArrayList<>();
         this.items = new ItemController(items, transactionhistory);
         this.transactions = new TransactionController(items, transactionhistory, this.items);
         this.reviews = new ReviewController(items, this.items);
+        this.employees = new EmployeeController();
     }
 
     public String createItem(String itemID, String itemName, double unitPrice){
@@ -162,15 +167,15 @@ public class Facade {
     }
 
     public String createEmployee(String employeeID, String employeeName, double grossSalary) throws Exception {
-        return "";
+        return employees.createEmployee(employeeID, employeeName, grossSalary);
     }
 
     public String printEmployee(String employeeID) throws Exception {
-        return "";
+        return employees.printEmployee(employeeID);
     }
 
     public String createEmployee(String employeeID, String employeeName, double grossSalary, String degree) throws Exception {
-        return "";
+        return employees.createEmployee(employeeID, employeeName, grossSalary, degree);
     }
 
     public String createEmployee(String employeeID, String employeeName, double grossSalary, int gpa) throws Exception {
@@ -178,7 +183,7 @@ public class Facade {
     }
 
     public double getNetSalary(String employeeID) throws Exception {
-        return -1.0;
+        return employees.getNetSalary(employeeID);
     }
 
     public String createEmployee(String employeeID, String employeeName, double grossSalary, String degree, String dept) throws Exception {
@@ -186,11 +191,11 @@ public class Facade {
     }
 
     public String removeEmployee(String empID) throws Exception {
-        return "";
+        return employees.removeEmployee(empID);
     }
 
     public String printAllEmployees() throws Exception {
-        return "";
+        return employees.printAllEmployees();
     }
 
     public double getTotalNetSalary() throws Exception {
