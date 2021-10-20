@@ -1,14 +1,11 @@
 package ShopOfSomething;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class ClothingStore {
 
-    ArrayList<Item> items = new ArrayList<>();
-    ArrayList<Log> history = new ArrayList<>();
+    ArrayList<Items> items = new ArrayList<>();
+    ArrayList<Transactions> transactionhistory = new ArrayList<>();
 
     public static void main(String[] args){
 
@@ -313,12 +310,43 @@ public class ClothingStore {
                 "Type an option number:");
 
     }
-   
+    public void openEmployeeHandler() {
+        int selection = UserInput.readInt();
+        switch (selection) {
+            case 0:
+                System.out.println("Return to Main Menu.");
+                printMainMenu();
+                mainMenuHandler();
+                break;
+            case 1:
+                System.out.println("Create an employee (Regular Employee).");
+                break;
+            case 2:
+                System.out.println("Create an employee (Manager).");
+            case 3:
+                System.out.println("Create an employee (Director).");
+            case 4:
+                System.out.println("Create an employee (Intern).");
+            case 5:
+                System.out.println("Remove an employee.");
+            case 6:
+                System.out.println("Print specific employee.");
+            case 7:
+                System.out.println("Print all registered employees.");
+            case 8:
+                System.out.println("Print the total expense with net salary.");
+            case 9:
+                System.out.println("Print all employees sorted by gross salary.");
+            default:
+                System.out.println("Invalid Option. Please try again: ");
+        }
+    }
+
 
 
     // A method for checking if an array contains an element(if already exists)
     public boolean containsItem(String item) {
-        for (Item i : items) {
+        for (Items i : items) {
             if(i.getiD().equals(item)) {
                 return true;
             }
@@ -332,7 +360,7 @@ public class ClothingStore {
            return "No items registered yet.";
        }
         String message = "All registered items:" + System.lineSeparator();
-        for (Item i: items) {
+        for (Items i: items) {
             message += printItem(i.getiD()) + System.lineSeparator();
         }
         return message;
@@ -340,7 +368,7 @@ public class ClothingStore {
 
     //Prints a single item.
     public String printItem(String itemID) {
-        Item item = findItem(itemID);
+        Items item = findItem(itemID);
         if(item == null){
             return "Item " + itemID + " was not registered yet.";
         } else {
@@ -358,8 +386,7 @@ public class ClothingStore {
             return message;
         }
 
-
-        Item item = new Item(iD, name, price);
+        Items item = new Items(iD, name, price);
 
         if(containsItem(item.getiD())){ // if iD already exists
             String message = "Item " + iD + " already exist";
@@ -398,7 +425,7 @@ public class ClothingStore {
 
     //update item price and name.
     public String updateItemName(String iD, String name) {
-        Item item = findItem(iD);
+        Items item = findItem(iD);
         if(item == null) {
             return ("Item " + iD + " was not registered yet.");
         }else if(name.isEmpty()){
@@ -410,7 +437,7 @@ public class ClothingStore {
 
 
     public String updateItemPrice(String iD, double price) {
-        Item item = findItem( iD);
+        Items item = findItem( iD);
         if(item == null) {
             return ("Item " + iD + " was not registered yet.");
         } else if(price <= 0){
@@ -423,7 +450,7 @@ public class ClothingStore {
 
     //Print a specific item's ID, price and name
     public String printSpecificItem(String iD) {
-        Item item = findItem( iD);
+        Items item = findItem( iD);
         if(item == null) {
             return ("Item " + iD + " could not be found.");
 
@@ -434,7 +461,7 @@ public class ClothingStore {
 
     //Remove an item given its iD.
     public String removeItem(String iD) {
-        Item item = findItem( iD);
+        Items item = findItem( iD);
         if(item == null) {
             return ("Item " + iD + " could not be removed.");
 
@@ -443,8 +470,8 @@ public class ClothingStore {
         return ("Item " + iD + " was successfully removed.");
 
     }
-    public Item findItem(String iD ) {
-        for (Item i: items) {
+    public Items findItem(String iD ) {
+        for (Items i: items) {
             if(i.getiD().equals(iD)) {
                 return i;
             }
@@ -453,7 +480,7 @@ public class ClothingStore {
     }
     //Buy item with discount at bulk
     public double buyItem(String iD, int count) {
-        Item item = findItem(iD);
+        Items item = findItem(iD);
         if (item == null) {
             System.out.println("Item " + iD + " could not be found.");
             return -1;
@@ -467,43 +494,53 @@ public class ClothingStore {
             System.out.println("Total price with discount: " + UserInput.decimalFormat(totalSum));
         }
 
-        history.add(new Log(item.getiD(), count, totalSum));
+        transactionhistory.add(new Transactions(item.getiD(), count, totalSum));
         return Double.parseDouble(UserInput.decimalFormat(totalSum));
     }
     public double getTotalProfit() {
         double profit = 0;
-        for(Log l: history) {
+        for(Transactions l: transactionhistory) {
             profit += Double.parseDouble(UserInput.decimalFormat(l.getPrice()));
         } return Double.parseDouble(UserInput.decimalFormat(profit));
     }
+
+
     public double getProfit(String iD) {
         double profit = 0;
-        for(Log l: history) {
+        for(Transactions l: transactionhistory) {
             if (l.getiD().equals(iD)) {
                 profit += Double.parseDouble(UserInput.decimalFormat(l.getPrice()));
             }
         } return Double.parseDouble(UserInput.decimalFormat(profit));
     }
+
+
     public int getUnitsSolds(String iD) {
         int count = 0;
-        for(Log l: history) {
+        for(Transactions l: transactionhistory) {
             if (l.getiD().equals(iD)) {
                 count += l.getCount();
             }
         } return count;
     }
+
+
     public int getTotalUnitsSold() {
         int count = 0;
-        for(Log l: history) {
+        for(Transactions l: transactionhistory) {
             count += l.getCount();
         } return count;
     }
+
+
     public int getTotalTransactions() {
-        return history.size();
+        return transactionhistory.size();
     }
+
+
     public String printItemTransactions(String iD) {
         boolean exists = false;
-        for(Item item:items){
+        for(Items item:items){
             if(item.getiD().equals(iD)){
                 exists = true;
                 break;
@@ -519,7 +556,7 @@ public class ClothingStore {
         int count = 0;
         int purchases = 0;
 
-        for (Log l: history) {
+        for (Transactions l: transactionhistory) {
             if(l.getiD().equals(iD)) {
                 profit += l.getPrice();
                 count += l.getCount();
@@ -527,9 +564,9 @@ public class ClothingStore {
             }
         }
         String message = "";
-        Item item = findItem(iD);
+        Items item = findItem(iD);
         message += iD + ": " + item.getName() + ". " + UserInput.decimalFormat(item.getPrice()) + " SEK" + System.lineSeparator();
-        for (Log l: history) {
+        for (Transactions l: transactionhistory) {
             if(l.getiD().equals(iD)) {
                 message += iD + ": " + l.getCount() + " item(s). " + UserInput.decimalFormat(l.getPrice()) + " SEK" + System.lineSeparator();
 
@@ -546,40 +583,49 @@ public class ClothingStore {
         printPurch(purchases);
         return "Transactions for item: " + message;
     }
+
+
     public String printProf(double profit) {
         return ("Total profit: " + UserInput.decimalFormat(profit) + " SEK" + System.lineSeparator());
     }
+
+
     public String printCount(int count) {
         return ("Total items sold: " + count + " units" + System.lineSeparator());
     }
+
+
     public String printPurch(int purchases) {
         return ("Total purchases made: " + purchases + " transactions" + System.lineSeparator());
     }
+
+
     public String printAllTransactions() {
         String message = "All purchases made: " + System.lineSeparator() + printProf(getTotalProfit()) +
                 printCount(getTotalUnitsSold()) + printPurch(getTotalTransactions()) + ("------------------------------------") +
                 System.lineSeparator();
 
-        for(Log l: history){
+        for(Transactions l: transactionhistory){
             message += l.printTransaction();
         }
 
         return message + ("------------------------------------") + System.lineSeparator();
 
     }
+
+
     public String printMostProfitableItems() {
 
         if(items.size() == 0) {
             return ("No items registered yet.");
         }
-        if(history.size() == 0) {
+        if(transactionhistory.size() == 0) {
             return ("No items were bought yet.");
         }
 
-
         //Find all unique ids
         Set<String> iDs = new HashSet<String>();
-        for (Log l:history){
+        for (Transactions l: transactionhistory){
             iDs.add(l.getiD());
         }
 
@@ -599,8 +645,6 @@ public class ClothingStore {
             }
         }
 
-
-
         //Run loop incase of multiple max profits
         for(String iD:maxProfitableIDS){
             System.out.println(" Most profitable items: ");
@@ -613,99 +657,146 @@ public class ClothingStore {
         return null;
     }
 
+
     public String reviewItem(String itemID, String reviewComment, int reviewGrade) {
-        addReview(itemID, reviewGrade, reviewComment);
-        return "Your item review was registered successfully.";
-    }
-
-    public String reviewItem(String itemID, int reviewGrade) {
-        addReview(itemID, reviewGrade);
-        return "Your item review was registered successfully.";
-    }
-
-    public void addReview(String itemID, int reviewGrade, String reviewComment) {
-        if (reviewGrade < 1 || reviewGrade > 5) {
+        String message;
+        if (reviewGrade < 0 || reviewGrade > 5) {
             System.out.println("Invalid value for grade");
-        }
-        findItem(itemID).reviewList.add(new Review(itemID, reviewGrade, reviewComment));
-    }
-
-    public void addReview(String itemID, int reviewGrade) {
-        if (reviewGrade < 1 || reviewGrade > 5) {
-            System.out.println("Invalid value for grade");
-        }
-        findItem(itemID).reviewList.add(new Review(itemID, reviewGrade));
-    }
-
-    public String getItemCommentsPrinted(String itemID) {
-        String EOL = System.lineSeparator();
-        String message = "";
-        for (Item item : items) {
-            for (Review review : item.reviewList) {
-                message += review.getComment() + EOL;
+            message = "Grade values must be between 1 and 5.";
+        } else if (findItem(itemID) == null) {
+            message = "Item " + itemID + " not found.";
+        } else {
+                findItem(itemID).reviewsList.add(new Reviews(itemID, reviewGrade, reviewComment));
+                message = "Your item review was registered successfully.";
             }
-        }
         return message;
     }
 
+
+    public String reviewItem(String itemID, int reviewGrade) {
+        String message;
+        if (reviewGrade < 0 || reviewGrade > 5) {
+            System.out.println("Invalid value for grade");
+            message = "Grade values must be between 1 and 5.";
+        } else if (findItem(itemID) == null) {
+            message = "Item " + itemID + " not found.";
+        } else {
+            findItem(itemID).reviewsList.add(new Reviews(itemID, reviewGrade));
+            message = "Your item review was registered successfully.";
+        }
+        return message;
+        }
+
+
+    public String getItemCommentsPrinted(String itemID) {
+        String EOL = System.lineSeparator();
+        StringBuilder message = new StringBuilder();
+        for (Items item : items) {
+            for (Reviews reviews : item.reviewsList) {
+                message.append(reviews.getComment()).append(EOL);
+            }
+        }
+        return message.toString();
+    }
+
+
     public List<String> getItemComments(String itemID) {
         List<String> commentList = new ArrayList<>();
-        Item item = findItem(itemID);
-        if (item.reviewList == null) {
+        Items item = findItem(itemID);
+        if (item.reviewsList == null) {
             return commentList;
         }
-        for (Review review : item.reviewList) {
-            if (review.getComment() != null && !review.getComment().isEmpty()) {
-                commentList.add(review.getComment());
+        for (Reviews reviews : item.reviewsList) {
+            if (reviews.getComment() != null && !reviews.getComment().isEmpty()) {
+                commentList.add(reviews.getComment());
             }
         }
         return commentList;
     }
 
+
     public double getItemMeanGrade(String itemID) {
         double meanGrade = 0.00;
-        Item item = findItem(itemID);
-        for (Review review : item.reviewList) {
-            meanGrade += review.getGrade();
+        Items item = findItem(itemID);
+        if (item.reviewsList.isEmpty()) {
+            return 0.00;
+        } else {
+            for (Reviews reviews : item.reviewsList) {
+                meanGrade += reviews.getGrade();
+            }
         }
-        return UserInput.truncateFormat(meanGrade / item.reviewList.size());
+        return UserInput.truncateFormat(meanGrade / item.reviewsList.size());
     }
+
 
     public int getNumberOfReviews(String itemID) {
-        Item item = findItem(itemID);
-        return item.reviewList.size();
+        Items item = findItem(itemID);
+        return item.reviewsList.size();
     }
 
+
     public String getPrintedItemReview(String itemID, int reviewNumber) {
-        Item item = findItem(itemID);
+        Items item = findItem(itemID);
         String currentReview = "";
-        currentReview += item.reviewList.get(reviewNumber - 1);
+        if (item.reviewsList.size() < 1) {
+            currentReview = "Item " + item.getName() + " has not been reviewed yet.";
+        } else if (reviewNumber < 1 || reviewNumber > item.reviewsList.size()) {
+            int revNum = item.reviewsList.size();
+            currentReview = "Invalid review number. Choose between 1 and " + revNum + ".";
+        } else {
+            currentReview += item.reviewsList.get(reviewNumber - 1);
+        }
         return currentReview;
     }
+
 
     public String getPrintedReviews(String itemID) {
         String EOL = System.lineSeparator();
         String reviewOutput = "";
-        Item item = findItem(itemID);
-        for (Review review : item.reviewList) {
-            reviewOutput += review + EOL;
+        Items item = findItem(itemID);
+        if (item == null) {
+            reviewOutput = "Item " + itemID + " was not registered yet.";
+        } else {
+            reviewOutput = "Review(s) for " + item + EOL;
+            if (item.reviewsList.isEmpty()) {
+                reviewOutput += "The item " + item.getName() + " has not been reviewed yet.";
+                }
+            for (Reviews reviews : item.reviewsList) {
+                reviewOutput += reviews + EOL;
+            }
         }
-        return "Review(s) for " + item + EOL + reviewOutput;
+        return reviewOutput;
     }
 
 
     public String printMostReviewedItems() {
         String EOL = System.lineSeparator();
         int max = 0;
-        for (Item item : items) {
-            if (item.reviewList.size() > max) {
-                max = item.reviewList.size();
+        for (Items item : items) {
+            if (item.reviewsList.size() > max) {
+                max = item.reviewsList.size();
             }
         }
+
         String count = "Most reviews: " + max + " review(s) each." + EOL;
-        for (Item item : items) {
-            if (item.reviewList.size() == max) {
-                count += item + EOL;
+
+        if (items.isEmpty()) {
+            count = "No items registered yet.";
+        } else {
+            int num = 0;
+            for (Items item : items) {
+                if (!item.reviewsList.isEmpty()) {
+                    num += 1;
+                }
+            }
+            if (num > 0) {
+                for (Items item : items) {
+                    if (item.reviewsList.size() == max) {
+                        count += item + EOL;
+                    }
+                }
+            } else {
+                count = "No items were reviewed yet.";
             }
         }
         return count;
@@ -714,14 +805,14 @@ public class ClothingStore {
 
     public List<String> getMostReviewedItems() {
         int max = 0;
-        for (Item item : items) {
-            if (item.reviewList.size() > max) {
-                max = item.reviewList.size();
+        for (Items item : items) {
+            if (item.reviewsList.size() > max) {
+                max = item.reviewsList.size();
             }
         }
         ArrayList<String> maxReviews = new ArrayList<>();
-        for (Item item : items) {
-            if (item.reviewList.size() == max) {
+        for (Items item : items) {
+            if (item.reviewsList.size() == max) {
                 maxReviews.add(item.getiD());
             }
         }
@@ -729,86 +820,150 @@ public class ClothingStore {
     }
 
 
-
     public List<String> getLeastReviewedItems() {
         int min = Integer.MAX_VALUE;
-        for (Item item : items) {
-            if (item.reviewList.size() < min && item.reviewList.size() > 0) {
-                min = item.reviewList.size();
+        for (Items item : items) {
+            if (item.reviewsList.size() < min && item.reviewsList.size() > 0) {
+                min = item.reviewsList.size();
             }
         }
         ArrayList<String> minReviews = new ArrayList<>();
-        for (Item item : items) {
-            if (item.reviewList.size() == min) {
+        for (Items item : items) {
+            if (item.reviewsList.size() == min) {
                 minReviews.add(item.getiD());
             }
         }
         return minReviews;
     }
 
+
     public String printLeastReviewedItems() {
         String EOL = System.lineSeparator();
         int min = Integer.MAX_VALUE;
-        for (Item item : items) {
-            if (item.reviewList.size() < min && item.reviewList.size() > 0) {
-                min = item.reviewList.size();
+        for (Items item : items) {
+            if (item.reviewsList.size() < min && item.reviewsList.size() > 0) {
+                min = item.reviewsList.size();
             }
         }
         String count = "Least reviews: " + min + " review(s) each." + EOL;
-        for (Item item : items) {
-            if (item.reviewList.size() == min) {
-                count += item + EOL;
+
+        if (items.isEmpty()) {
+            count = "No items registered yet.";
+        } else {
+            int num = 0;
+            for (Items item : items) {
+                if (!item.reviewsList.isEmpty()) {
+                    num += 1;
+                }
+            }
+            if (num > 0) {
+                for (Items item : items) {
+                    if (item.reviewsList.size() == min) {
+                        count += item + EOL;
+                    }
+                }
+            } else {
+                count = "No items were reviewed yet.";
             }
         }
         return count;
     }
 
+
     public String printWorseReviewedItems() {
         String EOL = System.lineSeparator();
-        StringBuilder sb = new StringBuilder();
+        String message;
+        double meanGrade = 5.00;
+        String meanGradeStr = "";
+        String storeStr = "";
+        String newStr = "";
 
-        String message = "Items with worst mean reviews:" + EOL;
-        double meanGrade = Double.MIN_VALUE;
-        String currentID;
-        System.out.println("kladdkaka");
-
-        for (Item item : items) {
-            System.out.println("kladdkaka");
-            if (meanGrade >= getItemMeanGrade(item.getiD())) {
-                meanGrade = getItemMeanGrade(item.getiD());
-                currentID = item.getiD() + ": " + item.getName() + ". " + UserInput.decimalFormat(item.getPrice()) + " SEK";
-                sb.append(EOL + currentID);
+        if (items.isEmpty()) {
+            message = "No items registered yet.";
+        } else {
+            int num = 0;
+            for (Items item : items) {
+                if (!item.reviewsList.isEmpty()) {
+                    num += 1;
+                }
             }
-        } return message + "Grade: " + meanGrade + sb + EOL;
+            if (num > 0) {
+                message = "Items with worst mean reviews:" + EOL + "Grade: ";
+                for (Items item : items) {
+                    if (getItemMeanGrade(item.getiD()) <= meanGrade && getItemMeanGrade(item.getiD()) != 0.00) {
+                        newStr = item.getiD();
+                    }
+                }
+                meanGrade = getItemMeanGrade(newStr);
+                meanGradeStr += getItemMeanGrade(newStr);
+                for (Items item : items) {
+                    if (getItemMeanGrade(item.getiD()) <= meanGrade && getItemMeanGrade(item.getiD()) != 0.00) {
+                        meanGrade = getItemMeanGrade(item.getiD());
+                        storeStr += item.getiD() + ": " + item.getName() + ". " + UserInput.decimalFormat(item.getPrice()) + " SEK" + EOL;
+                    }
+                }
+                message += meanGradeStr + EOL + storeStr;
+            } else {
+                message = "No items were reviewed yet.";
+            }
+        }
+        return message;
     }
 
 
     public String printBestReviewedItems() {
         String EOL = System.lineSeparator();
-        StringBuilder sb = new StringBuilder();
-
         String message = "Items with best mean reviews:" + EOL;
         double meanGrade = 0.00;
-        String currentID;
+        String meanGradeStr = "";
+        String storeStr = "";
 
-        for (Item item : items) {
-            if (meanGrade <= getItemMeanGrade(item.getiD())) {
-                meanGrade = getItemMeanGrade(item.getiD());
-                currentID = item.getiD() + ": " + item.getName() + ". " + UserInput.decimalFormat(item.getPrice()) + " SEK";
-                sb.append(EOL + currentID);
+        if (items.isEmpty()) {
+            message = "No items registered yet.";
+        } else {
+            int num = 0;
+            for (Items item : items) {
+                if (!item.reviewsList.isEmpty()) {
+                    num += 1;
+                }
             }
-        } return message + "Grade: " + meanGrade + sb + EOL;
+            if (num > 0) {
+                for (Items item : items) {
+                    if (getItemMeanGrade(item.getiD()) >= meanGrade) {
+                        meanGradeStr = "Grade: " + getItemMeanGrade(item.getiD());
+                        meanGrade = getItemMeanGrade(item.getiD());
+                        storeStr += item.getiD() + ": " + item.getName() + ". " + UserInput.decimalFormat(item.getPrice()) + " SEK" + EOL;
+                    }
+                }
+                message += meanGradeStr + EOL + storeStr;
+            } else {
+                message = "No items were reviewed yet.";
+            }
+        }
+        return message;
     }
 
 
     public List<String> getWorseReviewedItems() {
         ArrayList<String> worstReviews = new ArrayList<>();
-        double max = 5.00;
-        for (Item item : items) {
+        double min = 5.00;
+        for (Items item : items) {
             double currentNum = getItemMeanGrade(item.getiD());
-            if (currentNum < max && currentNum != 0.00) {
-                max = currentNum;
+            if (currentNum <= min && currentNum != 0.00) {
                 worstReviews.add(item.getiD());
+            }
+        }
+        Collections.reverse(worstReviews);
+        if (items.isEmpty()) {
+            worstReviews.clear();
+        } else {
+            String tempID = worstReviews.get(0);
+            worstReviews.clear();
+            for(Items item : items) {
+                double currentNum = getItemMeanGrade(item.getiD());
+                if (currentNum <= getItemMeanGrade(tempID) && currentNum != 0.00) {
+                    worstReviews.add(item.getiD());
+                }
             }
         }
         return worstReviews;
@@ -818,27 +973,59 @@ public class ClothingStore {
     public List<String> getBestReviewedItems() {
         ArrayList<String> bestReviews = new ArrayList<>();
         double max = 0.00;
-        for (Item item : items) {
-            double currentNum = getItemMeanGrade(item.getiD());
-            if (currentNum >= max) {
-                bestReviews.add(item.getiD());
-                max = currentNum;
-            }
-        } return bestReviews;
-    }
+        int count = 1;
 
+        // check to see if reviewslist is empty or not
+        for (Items item : items) {
+            if (item.reviewsList.size() > 0) {
+                count += 1;
+            } else {
+                count += 0;
+            }
+        }
+
+        // if reviewslist not empty add ID to ArrayList, else clear ArrayList
+        if (count > 0) {
+            for (Items item : items) {
+                double currentNum = getItemMeanGrade(item.getiD());
+                if (currentNum >= max) {
+                    bestReviews.add(item.getiD());
+                    max = currentNum;
+                }
+            }
+        } else {
+            bestReviews.clear();
+        }
+        return bestReviews;
+    }
 
 
     public String printAllReviews() {
         String EOL = System.lineSeparator();
-        String message = "All registered reviews:" + EOL +
-                "------------------------------------" + EOL;
-        for (Item item : items) {
-            if (!item.reviewList.isEmpty()) {
-                message += getPrintedReviews(item.getiD()) + "------------------------------------" + EOL;
+        String message;
+        if (items.isEmpty()) {
+            message = "No items registered yet.";
+        } else {
+            int count = 0;
+            for (Items item : items) {
+                if (item.reviewsList.size() > 0) {
+                    count += 1;
+                } else {
+                    count += 0;
+                }
+            }
+            if (count < 1) {
+                message = "No items were reviewed yet.";
+            } else {
+                message = "All registered reviews:" + EOL +
+                        "------------------------------------" + EOL;
+                for (Items item : items) {
+                    if (!item.reviewsList.isEmpty()) {
+                        message += getPrintedReviews(item.getiD()) + "------------------------------------" + EOL;
+                    }
+                }
             }
         }
         return message;
     }
 }
-
