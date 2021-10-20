@@ -1,4 +1,6 @@
-package ShopOfSomething;
+package ShopOfSomething.models;
+
+import ShopOfSomething.UserIO;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,7 +10,7 @@ public class Item {
     private String iD;
     private String name;
     private double price;
-    public List<ShopOfSomething.Review> reviewList = new ArrayList<>();
+    public List<Review> reviewList = new ArrayList<>();
 
 
     public Item(String iD, String name, double price) {
@@ -18,7 +20,7 @@ public class Item {
     }
 
     // do we need this constructor?
-    public Item(String iD, String name, double price, ArrayList<ShopOfSomething.Review> reviewList) {
+    public Item(String iD, String name, double price, ArrayList<Review> reviewList) {
         this.iD = iD;
         this.name = name;
         this.price = price;
@@ -26,7 +28,7 @@ public class Item {
     }
 
     public String toString() {
-        return this.iD +": " + this.name + ". " + ShopOfSomething.UserInput.decimalFormat(this.price) + " SEK";
+        return this.iD +": " + this.name + ". " + UserIO.decimalFormat(this.price) + " SEK";
     }
 
     public String getiD() {
@@ -39,6 +41,10 @@ public class Item {
 
     public double getPrice() {
         return price;
+    }
+
+    public List<Review> getReviewsList() {
+        return reviewList;
     }
 
     public void updateItem(String name, double price) {

@@ -1,4 +1,4 @@
-package ShopOfSomething;
+package ShopOfSomething.models.employees;
 
 
 import java.util.ArrayList;

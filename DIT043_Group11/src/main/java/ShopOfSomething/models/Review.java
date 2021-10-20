@@ -1,6 +1,6 @@
-package ShopOfSomething;
+package ShopOfSomething.models;
 
-public class Reviews {
+public class Review {
 
     private String iD;
     private int reviewGrade;
@@ -8,13 +8,13 @@ public class Reviews {
 
 
     //constructor1
-    public Reviews(String iD, int itemGrade) {
+    public Review(String iD, int itemGrade) {
         this.iD = iD;
         this.reviewGrade = itemGrade;
     }
 
     //constructor2
-    public Reviews(String iD, int itemGrade, String itemComment) {
+    public Review(String iD, int itemGrade, String itemComment) {
         this.iD = iD;
         this.reviewGrade = itemGrade;
         this.reviewComment = itemComment;

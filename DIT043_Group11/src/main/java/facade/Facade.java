@@ -1,152 +1,164 @@
 package facade;
 
-import ShopOfSomething.ClothingStore;
+import ShopOfSomething.controllers.ItemController;
+import ShopOfSomething.controllers.ReviewController;
+import ShopOfSomething.controllers.TransactionController;
+import ShopOfSomething.models.Item;
+import ShopOfSomething.models.Transaction;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 public class Facade {
 
-    ClothingStore store = new ClothingStore();
+    private ItemController items;
+    private TransactionController transactions;
+    private ReviewController reviews;
+
 
     // This class only has the skeleton of the methods used by the test.
     // You must fill in this class with your own code. You can (and should) create more classes
     // that implement the functionalities listed in the Facade and in the Test Cases.
 
     public Facade(){
-
+        ArrayList<Item> items = new ArrayList<>();
+        ArrayList<Transaction> transactionhistory = new ArrayList<>();
+        this.items = new ItemController(items, transactionhistory);
+        this.transactions = new TransactionController(items, transactionhistory, this.items);
+        this.reviews = new ReviewController(items, this.items);
     }
 
     public String createItem(String itemID, String itemName, double unitPrice){
-        return store.createItem(itemID, itemName, unitPrice);
+        return items.createItem(itemID, itemName, unitPrice);
     }
 
     public String printItem(String itemID) {
-        return store.printItem(itemID);
+        return items.printItem(itemID);
     }
 
     public String removeItem(String itemID) {
-        return store.removeItem(itemID);
+        return items.removeItem(itemID);
     }
 
     public boolean containsItem(String itemID) {
-        return store.containsItem(itemID);
+        return items.containsItem(itemID);
     }
 
     public double buyItem(String itemID, int amount) {
-        return store.buyItem(itemID, amount);
+        return items.buyItem(itemID, amount);
     }
 
     public String reviewItem(String itemID, String reviewComment, int reviewGrade) {
-        return store.reviewItem(itemID, reviewComment, reviewGrade);
+        return reviews.reviewItem(itemID, reviewComment, reviewGrade);
     }
 
     public String reviewItem(String itemID, int reviewGrade) {
-        return store.reviewItem(itemID, reviewGrade);
+        return reviews.reviewItem(itemID, reviewGrade);
     }
 
     public String getItemCommentsPrinted(String itemID) {
-        return store.getItemCommentsPrinted(itemID);
+        return reviews.getItemCommentsPrinted(itemID);
     }
 
     public List<String> getItemComments(String itemID) {
-        return store.getItemComments(itemID);
+        return reviews.getItemComments(itemID);
     }
 
     public double getItemMeanGrade(String itemID) {
-        return store.getItemMeanGrade(itemID);
+        return reviews.getItemMeanGrade(itemID);
     }
 
     public int getNumberOfReviews(String itemID) {
-        return store.getNumberOfReviews(itemID);
+        return reviews.getNumberOfReviews(itemID);
     }
 
     public String getPrintedItemReview(String itemID, int reviewNumber) {
-        return store.getPrintedItemReview(itemID, reviewNumber);
+        return reviews.getPrintedItemReview(itemID, reviewNumber);
     }
 
     public String getPrintedReviews(String itemID) {
-        return store.getPrintedReviews(itemID);
+        return reviews.getPrintedReviews(itemID);
     }
 
     public String printMostReviewedItems() {
-        return store.printMostReviewedItems();
+        return reviews.printMostReviewedItems();
     }
 
     public List<String> getMostReviewedItems() {
-        return store.getMostReviewedItems();
+        return reviews.getMostReviewedItems();
     }
 
     public List<String> getLeastReviewedItems() {
-        return store.getLeastReviewedItems();
+        return reviews.getLeastReviewedItems();
     }
 
     public String printLeastReviewedItems() {
-        return store.printLeastReviewedItems();
+        return reviews.printLeastReviewedItems();
     }
 
     public double getTotalProfit() {
-        return store.getTotalProfit();
+        return transactions.getTotalProfit();
     }
 
     public String printItemTransactions(String itemID) {
-        return store.printItemTransactions(itemID);
+        return transactions.printItemTransactions(itemID);
     }
 
     public int getTotalUnitsSold() {
-        return store.getTotalUnitsSold();
+        return transactions.getTotalUnitsSold();
     }
 
     public int getTotalTransactions() {
-        return store.getTotalTransactions();
+        return transactions.getTotalTransactions();
     }
 
     public double getProfit(String itemID) {
-        return store.getProfit(itemID);
+        return transactions.getProfit(itemID);
     }
 
     public int getUnitsSolds(String itemID) {
-        return store.getUnitsSolds(itemID);
+        return transactions.getUnitsSolds(itemID);
     }
 
     public String printAllTransactions() {
-        return store.printAllTransactions();
+        return transactions.printAllTransactions();
     }
 
     public String printWorseReviewedItems() {
-        return store.printWorseReviewedItems();
+        return reviews.printWorseReviewedItems();
     }
 
     public String printBestReviewedItems() {
-        return store.printBestReviewedItems();
+        return reviews.printBestReviewedItems();
     }
 
     public List<String> getWorseReviewedItems() {
-        return store.getWorseReviewedItems();
+        return reviews.getWorseReviewedItems();
     }
 
     public List<String> getBestReviewedItems() {
-        return store.getBestReviewedItems();
+        return reviews.getBestReviewedItems();
     }
 
     public String printAllReviews() {
-        return store.printAllReviews();
+        return reviews.printAllReviews();
     }
 
     public String updateItemName(String itemID, String newName) {
-        return store.updateItemName(itemID, newName);
+        return items.updateItemName(itemID, newName);
     }
 
     public String updateItemPrice(String itemID, double newPrice) {
-        return store.updateItemPrice(itemID, newPrice);
+        return items.updateItemPrice(itemID, newPrice);
     }
 
     public String printAllItems() {
-        return store.printAllItems();
+        return items.printAllItems();
     }
 
     public String printMostProfitableItems() {
-        return store.printMostProfitableItems();
+        return transactions.printMostProfitableItems();
     }
 
     public String createEmployee(String employeeID, String employeeName, double grossSalary) throws Exception {
