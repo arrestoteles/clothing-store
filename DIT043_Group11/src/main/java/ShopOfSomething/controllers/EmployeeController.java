@@ -102,7 +102,11 @@ public class EmployeeController {
     }
 
     public double getTotalNetSalary() throws Exception {
-        return -1.0;
+        double netSal = 0.00;
+        for (Employee employee : employees) {
+            netSal += getNetSalary(employee.getID());
+        }
+        return netSal;
     }
 
     public String printSortedEmployees() throws Exception {

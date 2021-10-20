@@ -199,7 +199,7 @@ public class Facade {
     }
 
     public double getTotalNetSalary() throws Exception {
-        return -1.0;
+        return employees.getTotalNetSalary();
     }
 
     public String printSortedEmployees() throws Exception {
