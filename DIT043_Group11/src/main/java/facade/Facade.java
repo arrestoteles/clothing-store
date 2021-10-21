@@ -227,7 +227,7 @@ public class Facade {
     }
 
     public Map<String, Integer> mapEachDegree() throws Exception {
-        return null;
+        return employees.mapEachDegree();
     }
 
     public String promoteToManager(String empID, String degree) throws Exception {
@@ -236,10 +236,10 @@ public class Facade {
     }
 
     public String promoteToDirector(String empID, String degree, String department) throws Exception {
-        return "";
+        return employees.promoteToDirector(empID, degree, department);
     }
 
     public String promoteToIntern(String empID, int gpa) throws Exception {
-        return "";
+        return employees.promoteToIntern(empID, gpa);
     }
 }

@@ -26,10 +26,10 @@ public class EmployeeController {
         return message;
     }
 
-    public String printSpecificEmployee(String iD) {
+    public String printSpecificEmployee(String iD) throws Exception {
         Employee employee = findEmployee(iD);
         if(employee == null) {
-            return ("Employee with " + iD + " does not exist. ");
+            throw new Exception("Employee " + iD + " was not registered yet.");
         }
         return employee.toString();
     }
@@ -57,8 +57,8 @@ public class EmployeeController {
     }
 
     public boolean employeeExist(String iD) {
-        for (Employee e: employees) {
-            if(e.getID().equals(iD)) {
+        for (Employee employee: employees) {
+            if(employee.getID().equals(iD)) {
                 return true;
             }
         }
@@ -181,7 +181,6 @@ public class EmployeeController {
         return ("Employee " + empID +" was updated successfully");
     }
 
-
     public String updateGrossSalary(String empID, double newSalary) throws Exception {
         Employee employee = findEmployee(empID);
         if(empID == null) {
@@ -193,30 +192,56 @@ public class EmployeeController {
     }
 
     public Map<String, Integer> mapEachDegree() throws Exception {
-        return null;
+        HashMap<String, Integer> mapEachDegree = new HashMap<>();
+        int bCount = 0;
+        int pCount = 0;
+        int mCount = 0;
+        for (Employee employee: employees) {
+            if(employee instanceof Manager)
+                switch (((Manager)employee).getDegree()) {
+                    case "BSc":
+                        bCount++;
+                        break;
+                    case "MSc":
+                        mCount++;
+                        break;
+                    case "PhD":
+                        pCount++;
+                        break;
+                }
+        }
+
+        if(bCount > 0) {
+            mapEachDegree.put("BSc", bCount);
+        }
+        if (mCount > 0) {
+            mapEachDegree.put("MSc", mCount);
+        }
+        if (pCount > 0) {
+            mapEachDegree.put("PhD", pCount);
+        }
+        return mapEachDegree;
     }
 
     public String promoteToManager(String empID, String degree) throws Exception {
         Employee employee = findEmployee(empID);
         removeEmployee(empID);
-        employees.add(employee);
+        createEmployee(empID, employee.getName(), employee.getBaseSalary(), degree);
         return empID + " promoted successfully to Manager.";
-
-        /*
-        String damonID = "Emp8";
-        String expectedMessage = "Emp8 promoted successfully to Manager.";
-        String expectedEmployee = "PhD Damon's gross salary is 29835.00 SEK per month.";
-        assertEquals(expectedMessage , facade.promoteToManager(damonID, "PhD"));
-        assertEquals(expectedEmployee, facade.printEmployee(damonID));
-         */
     }
 
     public String promoteToDirector(String empID, String degree, String department) throws Exception {
-        return "";
+        Employee employee = findEmployee(empID);
+        removeEmployee(empID);
+        createEmployee(empID, employee.getName(), employee.getBaseSalary(), degree, department);
+        return empID + " promoted successfully to Director.";
     }
 
     public String promoteToIntern(String empID, int gpa) throws Exception {
-        return "";
+        Employee employee = findEmployee(empID);
+        removeEmployee(empID);
+        createEmployee(empID,employee.getName(), employee.getBaseSalary(), gpa);
+        return empID + " promoted successfully to Intern.";
     }
 }
 

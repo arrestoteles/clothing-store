@@ -23,6 +23,10 @@ public class Employee {
         return name;
     }
 
+    public double getBaseSalary() {
+        return UserIO.truncateFormat2(grossSalary);
+    }
+
     public double getGrossSalary() {
         return UserIO.truncateFormat2(grossSalary);
     }

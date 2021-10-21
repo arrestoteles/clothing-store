@@ -13,6 +13,10 @@ public class Manager extends Employee {
         return super.getGrossSalary() * bonus();
     }
 
+    public String getDegree() {
+        return degree;
+    }
+
     public double bonus() {
         switch(degree) {
             case "BSc":
