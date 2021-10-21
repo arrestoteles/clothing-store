@@ -1,18 +1,18 @@
 package ShopOfSomething.models.employees;
 
 
+import ShopOfSomething.UserIO;
+
 public class Employee {
-    private String ID;
+    protected String ID;
     private String name;
     private double grossSalary;
-    private double netSalary;
-
 
     public Employee(String ID, String name, double grossSalary) {
         this.ID = ID;
         this.name = name;
         this.grossSalary = grossSalary;
-        this.netSalary = grossSalary * 0.90;
+
     }
 
     public String getID() {
@@ -24,11 +24,16 @@ public class Employee {
     }
 
     public double getGrossSalary() {
-        return grossSalary;
+        return UserIO.truncateFormat2(grossSalary);
     }
 
     public double getNetSalary() {
-        return netSalary;
+        return UserIO.truncateFormat2(0.9 * getGrossSalary());
+    }
+
+    public String toString() {
+        return (name + "'s gross salary is " + UserIO.decimalFormat(getGrossSalary()) +
+                " SEK per month.");
     }
 
     public void setName(String name) {
@@ -39,8 +44,5 @@ public class Employee {
         this.grossSalary = grossSalary;
     }
 
-    @Override
-    public String toString() {
-        return this.ID + this.name + this.grossSalary + this.netSalary;
-    }
+
 }

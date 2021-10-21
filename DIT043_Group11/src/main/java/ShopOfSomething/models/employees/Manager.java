@@ -8,26 +8,31 @@ public class Manager extends Employee {
         this.degree = degree;
     }
 
-    public String getDegree() {
-        return degree;
+    @Override
+    public double getGrossSalary() {
+        return super.getGrossSalary() * bonus();
+    }
+
+    public double bonus() {
+        switch(degree) {
+            case "BSc":
+                return 1.1;
+            case "MSc":
+                return 1.2;
+            case "PhD":
+                return 1.35;
+            default:
+                return 1;
+
+        }
     }
 
     public void setDegree(String degree) {
         this.degree = degree;
     }
 
-    public double updateGrossSalary() {
-        if (this.degree == "BSc.") {
-            double updatedSal = getGrossSalary() * 1.10;
-            return updatedSal;
-        } else if (this.degree == "MSc.") {
-            double updatedSal = getGrossSalary() * 1.20;
-            return updatedSal;
-        } else if (this.degree == "PhD.") {
-            double updatedSal = getGrossSalary() * 1.35;
-            return updatedSal;
-        } else {
-            return getGrossSalary();
-        }
+    @Override
+    public String toString() {
+        return degree + " " + super.toString();
     }
 }

@@ -171,7 +171,7 @@ public class Facade {
     }
 
     public String printEmployee(String employeeID) throws Exception {
-        return employees.printEmployee(employeeID);
+        return employees.printSpecificEmployee(employeeID);
     }
 
     public String createEmployee(String employeeID, String employeeName, double grossSalary, String degree) throws Exception {
@@ -179,7 +179,7 @@ public class Facade {
     }
 
     public String createEmployee(String employeeID, String employeeName, double grossSalary, int gpa) throws Exception {
-        return "";
+        return employees.createEmployee(employeeID, employeeName, grossSalary, gpa);
     }
 
     public double getNetSalary(String employeeID) throws Exception {
@@ -187,7 +187,7 @@ public class Facade {
     }
 
     public String createEmployee(String employeeID, String employeeName, double grossSalary, String degree, String dept) throws Exception {
-        return "";
+        return employees.createEmployee(employeeID, employeeName, grossSalary, degree, dept);
     }
 
     public String removeEmployee(String empID) throws Exception {
@@ -199,31 +199,31 @@ public class Facade {
     }
 
     public double getTotalNetSalary() throws Exception {
-        return employees.getTotalNetSalary();
+        return employees.printTotalExpenses();
     }
 
     public String printSortedEmployees() throws Exception {
-        return "";
+        return employees.printEmployeesBySalary();
     }
 
     public String updateEmployeeName(String empID, String newName) throws Exception {
-        return "";
+        return employees.updateEmployeeName(empID, newName);
     }
 
     public String updateInternGPA(String empID, int newGPA) throws Exception {
-        return "";
+        return employees.updateInternGPA(empID, newGPA);
     }
 
     public String updateManagerDegree(String empID, String newDegree) throws Exception {
-        return "";
+        return employees.updateManagerDegree(empID, newDegree);
     }
 
     public String updateDirectorDept(String empID, String newDepartment) throws Exception {
-        return "";
+        return employees.updateDirectorDept(empID, newDepartment);
     }
 
     public String updateGrossSalary(String empID, double newSalary) throws Exception {
-        return "";
+        return employees.updateGrossSalary(empID, newSalary);
     }
 
     public Map<String, Integer> mapEachDegree() throws Exception {
@@ -231,7 +231,7 @@ public class Facade {
     }
 
     public String promoteToManager(String empID, String degree) throws Exception {
-        return "";
+        return employees.promoteToManager(empID, degree);
 
     }
 
