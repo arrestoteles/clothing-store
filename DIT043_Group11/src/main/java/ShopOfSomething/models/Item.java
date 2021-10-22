@@ -12,7 +12,6 @@ public class Item {
     private double price;
     public List<Review> reviewList = new ArrayList<>();
 
-
     public Item(String iD, String name, double price) {
         this.iD = iD;
         this.name = name;

@@ -3,9 +3,16 @@ package ShopOfSomething.models.employees;
 public class Intern extends Employee {
     private int GPA;
 
-    public Intern(String ID, String name, double grossSalary, int GPA) {
+    public Intern(String ID, String name, double grossSalary, int GPA) throws Exception {
         super(ID, name, grossSalary);
+
+        if(GPA < 0){
+            throw new Exception(GPA + " outside range. Must be between 0-10.");
+        }else if (GPA > 10){
+            throw new Exception(GPA + " outside range. Must be between 0-10.");
+        }
         this.GPA = GPA;
+
     }
 
     @Override
@@ -29,7 +36,11 @@ public class Intern extends Employee {
         return super.toString() + " GPA: " + GPA;
     }
 
-    public void setGPA(int GPA) {
+    public void setGPA(int GPA) throws Exception {
+        if (GPA < 0) {
+            throw new Exception(GPA + " outside range. Must be between 0-10.");
+        } else if (GPA > 10)
+            throw new Exception(GPA + " outside range. Must be between 0-10.");
         this.GPA = GPA;
     }
 

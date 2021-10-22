@@ -14,8 +14,12 @@ import java.util.TreeMap;
 public class EmployeeController {
     ArrayList<Employee> employees = new ArrayList<>();
 
+    public String createEmployee(String iD, String name, double grossSalary) throws Exception {
+        if(!(isEmployeevalid(iD, name, grossSalary))){ //if item invalid
+            String message = "Invalid data for item.";
+            return message;
+        }
 
-    public String createEmployee(String iD, String name, double grossSalary) {
         Employee employee = new Employee(iD, name, grossSalary);
         if(employeeExist(employee.getID())) {
             String message = name + "'s gross salary is " + grossSalary + " SEK per month.";
@@ -29,16 +33,22 @@ public class EmployeeController {
     public String printSpecificEmployee(String iD) throws Exception {
         Employee employee = findEmployee(iD);
         if(employee == null) {
-            throw new Exception("Employee " + iD + " was not registered yet.");
+            throw new Exception("Employee " + iD +" was not registered yet.");
         }
         return employee.toString();
     }
 
     public String createEmployee(String employeeID, String employeeName, double grossSalary, String degree) throws Exception {
+        if(!(isEmployeevalid(employeeID, employeeName, grossSalary))){ //if item invalid
+            String message = "Invalid data for item.";
+            return message;
+        }
+
         Employee employee = new Manager(employeeID, employeeName, grossSalary, degree);
         if(employeeExist(employee.getID())) {
-            String message = employee.toString();
-            return message;
+            throw new Exception("No employees registered yet.");
+            //String message = employee.toString();
+            //return message;
         }
         employees.add(employee);
         String message = "Employee " + employeeID + " was registered successfully.";
@@ -46,6 +56,11 @@ public class EmployeeController {
     }
 
     public String createEmployee(String employeeID, String employeeName, double grossSalary, int gpa) throws Exception {
+        if(!(isEmployeevalid(employeeID, employeeName, grossSalary))){ //if item invalid
+            String message = "Invalid data for item.";
+            return message;
+        }
+
         Employee employee = new Intern(employeeID, employeeName, grossSalary, gpa);
         if(employeeExist(employee.getID())) {
             String message = employee.toString();
@@ -75,16 +90,23 @@ public class EmployeeController {
     }
 
     public double getNetSalary(String employeeID) throws Exception {
+        if(employees.isEmpty()){
+            throw new Exception("Employee " + employeeID + " was not registered yet.");
+        }
         Employee eID = findEmployee(employeeID);
         return eID.getNetSalary();
     }
 
     public String createEmployee(String employeeID, String employeeName, double grossSalary, String degree, String dept) throws Exception {
-        Employee employee = new Director(employeeID, employeeName, grossSalary, degree, dept);
-        if(employeeExist(employee.getID())) {
-            String message = employee.toString();
+        if(!(isEmployeevalid(employeeID, employeeName, grossSalary))){ //if item invalid
+            String message = "Invalid data for item.";
             return message;
         }
+        Employee employee = new Director(employeeID, employeeName, grossSalary, degree, dept);
+        if(employeeExist(employee.getID())) {
+            throw new Exception ("No employees registered yet.");
+        }
+
         employees.add(employee);
         String message = "Employee " + employeeID + " was registered successfully.";
         return message;
@@ -93,7 +115,7 @@ public class EmployeeController {
     public String removeEmployee(String empID) throws Exception {
         Employee employee = findEmployee(empID);
         if (!employeeExist(empID)) {
-            throw new Exception("Employee " + empID + " was not registered yet.");
+            throw new Exception("Employee "+ empID +" was not registered yet.");
         } else {
             employees.remove(employee);
             return  "Employee " + empID + " was successfully removed.";
@@ -101,7 +123,10 @@ public class EmployeeController {
 
     }
 
-    public String printAllEmployees() {
+    public String printAllEmployees() throws Exception {
+        if(employees.isEmpty()){
+            throw new Exception("No employees registered yet.");
+        }
         String EOL = System.lineSeparator();
         String message = "All registered employees:" + EOL;
         for (Employee i: employees) {
@@ -110,8 +135,10 @@ public class EmployeeController {
         return message;
     }
 
-    public double printTotalExpenses() {
-        String EOL = System.lineSeparator();
+    public double printTotalExpenses() throws Exception{
+        if(employees.isEmpty()){
+            throw new Exception("No employees registered yet.");
+        }
         double expenses = 0;
         for (Employee i: employees) {
             expenses += i.getNetSalary();
@@ -119,7 +146,11 @@ public class EmployeeController {
         return UserIO.truncateFormat2(expenses);
     }
 
-    public String printEmployeesBySalary() {
+    public String printEmployeesBySalary() throws Exception {
+        if(employees.isEmpty()){
+            throw new Exception("No employees registered yet.");
+        }
+
         String EOL = System.lineSeparator();
         HashMap<Double,Employee> map = new HashMap<Double, Employee>();
         for (Employee i: employees) {
@@ -137,9 +168,9 @@ public class EmployeeController {
     public String updateEmployeeName(String empID, String newName) throws Exception {
         Employee employee = findEmployee(empID);
         if(employee == null) {
-            return ("Employee " + empID + " was not registered yet.");
+            throw new Exception ("Employee " + empID + " was not registered yet.");
         }else if(newName.isEmpty()){
-            return "Invalid data for item.";
+            throw new Exception("Name cannot be blank.");
         }
         employee.setName(newName);
         return ("Employee " + empID +" was updated successfully");
@@ -148,10 +179,10 @@ public class EmployeeController {
     public String updateInternGPA(String empID, int newGPA) throws Exception {
         Employee employee = findEmployee(empID);
         if(empID == null) {
-            throw new Exception("Employee not found");
+            throw new Exception("Employee " + empID +" was not registered yet.");
         }
         else if(!(employee instanceof Intern)) {
-            throw new Exception("Intern not found");
+            throw new Exception("Employee " + empID + " was not registered yet.");
         }
         ((Intern)employee).setGPA(newGPA);
         return ("Employee " + empID +" was updated successfully");
@@ -160,10 +191,10 @@ public class EmployeeController {
     public String updateManagerDegree(String empID, String newDegree) throws Exception {
         Employee employee = findEmployee(empID);
         if(empID == null) {
-            throw new Exception("Employee not found");
+            throw new Exception("Employee " + empID +" was not registered yet.");
         }
         else if(!(employee instanceof Manager)) {
-            throw new Exception("Manager not found");
+            throw new Exception("Employee " + empID + " was not registered yet.");
         }
         ((Manager)employee).setDegree(newDegree);
         return ("Employee " + empID +" was updated successfully");
@@ -172,10 +203,10 @@ public class EmployeeController {
     public String updateDirectorDept(String empID, String newDepartment) throws Exception {
         Employee employee = findEmployee(empID);
         if(empID == null) {
-            throw new Exception("Employee not found");
+            throw new Exception("Employee " + empID +" was not registered yet.");
         }
         else if(!(employee instanceof Director)) {
-            throw new Exception("Director not found");
+            throw new Exception("Employee " + empID +" was not registered yet.");
         }
         ((Director)employee).setDepartment(newDepartment);
         return ("Employee " + empID +" was updated successfully");
@@ -183,8 +214,10 @@ public class EmployeeController {
 
     public String updateGrossSalary(String empID, double newSalary) throws Exception {
         Employee employee = findEmployee(empID);
-        if(empID == null) {
-            throw new Exception("Employee not found");
+        if(employees.isEmpty()) {
+            throw new Exception("Employee " + empID +" was not registered yet.");
+        } else if (newSalary <= 0){
+            throw new Exception("Salary must be greater than zero.");
         }
         employee.setGrossSalary(newSalary);
         return "Employee " + empID + " was updated successfully";
@@ -192,6 +225,9 @@ public class EmployeeController {
     }
 
     public Map<String, Integer> mapEachDegree() throws Exception {
+        if(employees.isEmpty()){
+            throw new Exception("No employees registered yet.");
+        }
         HashMap<String, Integer> mapEachDegree = new HashMap<>();
         int bCount = 0;
         int pCount = 0;
@@ -242,6 +278,23 @@ public class EmployeeController {
         removeEmployee(empID);
         createEmployee(empID,employee.getName(), employee.getBaseSalary(), gpa);
         return empID + " promoted successfully to Intern.";
+    }
+
+    public boolean isEmployeevalid(String iD, String name, double grossSalary) throws Exception {
+        //Empty iD
+        if((iD.isEmpty())) {
+            throw new Exception("ID cannot be blank.");
+        }
+        //Empty Name
+        if(name.isBlank()){
+            throw new Exception ("Name cannot be blank.");
+        }
+        //Invalid price
+        if(grossSalary <= 0){
+            throw new Exception("Salary must be greater than zero.");
+        }
+        return true;
+
     }
 }
 

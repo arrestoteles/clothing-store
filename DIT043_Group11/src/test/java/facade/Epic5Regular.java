@@ -34,7 +34,6 @@ public class Epic5Regular {
             facade.createEmployee("Emp7", "Ricky", 23500.00);                            // G: 23500.00; N: 21150.00
             facade.createEmployee("Emp8", "Damon", 22100.00);                            // G: 22100.00; N: 19890.00
         }catch(Exception e){
-            e.printStackTrace();
             assertFalse(true); // Forces an error in the test. The creation should work without problems.
         }
     }

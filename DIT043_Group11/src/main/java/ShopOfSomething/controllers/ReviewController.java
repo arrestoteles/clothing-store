@@ -23,7 +23,7 @@ public class ReviewController {
             System.out.println("Invalid value for grade");
             message = "Grade values must be between 1 and 5.";
         } else if (itemController.findItem(itemID) == null) {
-            message = "Item " + itemID + " not found.";
+            message = "Item " + itemID + " was not registered yet.";
         } else {
             itemController.findItem(itemID).reviewList.add(new Review(itemID, reviewGrade, reviewComment));
             message = "Your item review was registered successfully.";
@@ -37,7 +37,7 @@ public class ReviewController {
             System.out.println("Invalid value for grade");
             message = "Grade values must be between 1 and 5.";
         } else if (itemController.findItem(itemID) == null) {
-            message = "Item " + itemID + " not found.";
+            message = "Item " + itemID + " was not registered yet.";
         } else {
             itemController.findItem(itemID).reviewList.add(new Review(itemID, reviewGrade));
             message = "Your item review was registered successfully.";

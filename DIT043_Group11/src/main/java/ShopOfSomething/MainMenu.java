@@ -1,5 +1,6 @@
 package ShopOfSomething;
 
+import ShopOfSomething.controllers.EmployeeController;
 import ShopOfSomething.controllers.ItemController;
 import ShopOfSomething.controllers.ReviewController;
 import ShopOfSomething.controllers.TransactionController;
@@ -13,6 +14,7 @@ public class MainMenu {
     private ItemController items;
     private TransactionController transactions;
     private ReviewController reviews;
+    private EmployeeController employees;
 
     public MainMenu() {
         ArrayList<Item> items = new ArrayList<>();
@@ -20,10 +22,10 @@ public class MainMenu {
         this.items = new ItemController(items, transactionhistory);
         this.transactions = new TransactionController(items, transactionhistory, this.items);
         this.reviews = new ReviewController(items, this.items);
+        this.employees = new EmployeeController();
     }
 
-    public static void main(String[] args){
-
+    public static void main(String[] args) {
 
         mainMenu = new MainMenu();
         mainMenu.printMainMenu();
@@ -47,7 +49,7 @@ public class MainMenu {
 
     }
 
-    public void mainMenuHandler(){
+    public void mainMenuHandler() {
         int selection = UserIO.readInt();
         switch(selection){
             case 0:
@@ -71,6 +73,7 @@ public class MainMenu {
             case 4:
                 System.out.println("You have chosen: Open Employee options.");
                 printEmployeeMenu();
+                openEmployeeHandler();
                 break;
             default:
                 System.out.print("Invalid option, Please try again: ");
@@ -96,7 +99,7 @@ public class MainMenu {
                 "Type an option number: ");
     }
 
-    public void optionItemHandler(){
+    public void optionItemHandler() {
         while (true){ //never use while(true)
             int selection = UserIO.readInt();
             switch (selection) {
@@ -189,7 +192,7 @@ public class MainMenu {
                 "Type an option number: ");
     }
 
-    public void openReviewHandler(){
+    public void openReviewHandler() {
         int selection = UserIO.readInt();
         switch (selection){
             case 0:
@@ -251,7 +254,7 @@ public class MainMenu {
                 "Type an option number: ");
     }
 
-    public void openTransactionHandler(){
+    public void openTransactionHandler() {
         while (true) {
             int selection = UserIO.readInt();
             switch (selection){
@@ -333,34 +336,155 @@ public class MainMenu {
     }
 
     public void openEmployeeHandler() {
-        int selection = UserIO.readInt();
-        switch (selection) {
-            case 0:
-                System.out.println("Return to Main Menu.");
-                printMainMenu();
-                mainMenuHandler();
-                break;
-            case 1:
-                System.out.println("Create an employee (Regular Employee).");
-                break;
-            case 2:
-                System.out.println("Create an employee (Manager).");
-            case 3:
-                System.out.println("Create an employee (Director).");
-            case 4:
-                System.out.println("Create an employee (Intern).");
-            case 5:
-                System.out.println("Remove an employee.");
-            case 6:
-                System.out.println("Print specific employee.");
-            case 7:
-                System.out.println("Print all registered employees.");
-            case 8:
-                System.out.println("Print the total expense with net salary.");
-            case 9:
-                System.out.println("Print all employees sorted by gross salary.");
-            default:
-                System.out.println("Invalid Option. Please try again: ");
+        String EOL = System.lineSeparator();
+        while (true) {
+            int selection = UserIO.readInt();
+            switch (selection) {
+                case 0:
+                    System.out.println("Return to Main Menu.");
+                    printMainMenu();
+                    mainMenuHandler();
+                    break;
+                case 1:
+                    System.out.println("Create an employee (Regular Employee).");
+                    System.out.print("Name of employee: ");
+                    String name = UserIO.readStr();
+                    System.out.print("What is the ID: ");
+                    String empID = UserIO.readStr();
+                    System.out.println("What is the gross salary: ");
+                    double salary = UserIO.readDouble();
+                    try {
+                        employees.createEmployee(name, empID, salary);
+                    } catch (Exception e) {
+                        System.out.println(e.getMessage() + EOL);
+                        printEmployeeMenu();
+                        break;
+                    }
+                    printEmployeeMenu();
+                    break;
+                case 2:
+                    System.out.println("Create an employee (Manager).");
+                    System.out.print("Name of employee: ");
+                    name = UserIO.readStr();
+                    System.out.print("What is the ID: ");
+                    empID = UserIO.readStr();
+                    System.out.println("What is the gross salary: ");
+                    salary = UserIO.readDouble();
+                    System.out.println("Degree: ");
+                    String degree = UserIO.readStr();
+                    try {
+                        System.out.println(employees.createEmployee(name, empID, salary, degree));
+                    } catch (Exception e) {
+                        System.out.println(e.getMessage() + EOL);
+                        printEmployeeMenu();
+                        break;
+                    }
+                    printEmployeeMenu();
+                    break;
+                case 3:
+                    System.out.println("Create an employee (Director).");
+                    System.out.print("Name of employee: ");
+                    name = UserIO.readStr();
+                    System.out.print("What is the ID: ");
+                    empID = UserIO.readStr();
+                    System.out.println("What is the gross salary: ");
+                    salary = UserIO.readDouble();
+                    System.out.println("Degree: ");
+                    degree = UserIO.readStr();
+                    System.out.println("Department: ");
+                    String dept = UserIO.readStr();
+                    try {
+                        System.out.println(employees.createEmployee(name, empID, salary, degree, dept));
+                    } catch (Exception e) {
+                        System.out.println(e.getMessage() + EOL);
+                        printEmployeeMenu();
+                        break;
+                    }
+                    printEmployeeMenu();
+                    break;
+                case 4:
+                    System.out.println("Create an employee (Intern).");
+                    System.out.print("Name of employee: ");
+                    name = UserIO.readStr();
+                    System.out.print("What is the ID: ");
+                    empID = UserIO.readStr();
+                    System.out.println("What is the gross salary: ");
+                    salary = UserIO.readDouble();
+                    System.out.println("GPA: ");
+                    int gpa = UserIO.readInt();
+                    try {
+                        System.out.println(employees.createEmployee(name, empID, salary, gpa));
+                    } catch (Exception e) {
+                        System.out.println(e.getMessage() + EOL);
+                        printEmployeeMenu();
+                        break;
+                    }
+                    printEmployeeMenu();
+                    break;
+                case 5:
+                    System.out.println("Remove an employee.");
+                    System.out.println("ID of employee to remove: ");
+                    empID = UserIO.readStr();
+                    try {
+                        System.out.println(employees.removeEmployee(empID));
+                    } catch (Exception e) {
+                        System.out.println(e.getMessage() + EOL);
+                        printEmployeeMenu();
+                        break;
+                    }
+                    printEmployeeMenu();
+                    break;
+                case 6:
+                    System.out.println("Print specific employee.");
+                    System.out.println("Employee ID: ");
+                    empID = UserIO.readStr();
+                    try {
+                        System.out.println(employees.printSpecificEmployee(empID));
+                    } catch (Exception e) {
+                        System.out.println(e.getMessage() + EOL);
+                        printEmployeeMenu();
+                        break;
+                    }
+                    printEmployeeMenu();
+                    break;
+                case 7:
+                    System.out.println("Print all registered employees.");
+                    try {
+                        System.out.println(employees.printAllEmployees());
+                    } catch (Exception e) {
+                        System.out.println(e.getMessage() + EOL);
+                        printEmployeeMenu();
+                        break;
+                    }
+                    printEmployeeMenu();
+                    break;
+                case 8:
+                    System.out.println("Print the total expense with net salary.");
+                    try {
+                        System.out.println(employees.printTotalExpenses());
+                    } catch (Exception e) {
+                        System.out.println(e.getMessage() + EOL);
+                        printEmployeeMenu();
+                        break;
+                    }
+                    printEmployeeMenu();
+                    break;
+                case 9:
+                    System.out.println("Print all employees sorted by gross salary.");
+                    try {
+                        System.out.println(employees.printEmployeesBySalary());
+                    } catch (Exception e) {
+                        System.out.println(e.getMessage() + EOL);
+                        printEmployeeMenu();
+                        break;
+                    }
+                    printEmployeeMenu();
+                    break;
+                default:
+                    System.out.println("Invalid Option. Please try again: ");
+                    printEmployeeMenu();
+                    break;
+            }
         }
     }
 

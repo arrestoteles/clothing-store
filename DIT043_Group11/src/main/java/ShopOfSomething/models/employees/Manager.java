@@ -3,8 +3,11 @@ package ShopOfSomething.models.employees;
 public class Manager extends Employee {
     private String degree;
 
-    public Manager(String ID, String name, double grossSalary, String degree) {
+    public Manager(String ID, String name, double grossSalary, String degree) throws Exception {
         super(ID, name, grossSalary);
+        if (!degree.equals("BSc") && !degree.equals("MSc") && !degree.equals("PhD")) {
+            throw new Exception("Degree must be one of the options: BSc, MSc or PhD.");
+        }
         this.degree = degree;
     }
 
@@ -31,7 +34,10 @@ public class Manager extends Employee {
         }
     }
 
-    public void setDegree(String degree) {
+    public void setDegree(String degree) throws Exception {
+        if (!degree.equals("BSc") && !degree.equals("MSc") && !degree.equals("PhD")) {
+            throw new Exception("Degree must be one of the options: BSc, MSc or PhD.");
+        }
         this.degree = degree;
     }
 

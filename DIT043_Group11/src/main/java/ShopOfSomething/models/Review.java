@@ -6,7 +6,6 @@ public class Review {
     private int reviewGrade;
     private String reviewComment;
 
-
     //constructor1
     public Review(String iD, int itemGrade) {
         this.iD = iD;

@@ -5,8 +5,11 @@ import ShopOfSomething.UserIO;
 public class Director extends Manager {
     private String department;
 
-    public Director(String ID, String name, double grossSalary, String degree, String department) {
+    public Director(String ID, String name, double grossSalary, String degree, String department) throws Exception {
         super(ID, name, grossSalary, degree);
+        if(department.isBlank()) {
+            throw new Exception("Department must be one of the options: Business, Human Resources or Technical.");
+        }
         this.department = department;
 
     }
@@ -32,7 +35,12 @@ public class Director extends Manager {
         return super.toString() + " Dept: " + department;
     }
 
-    public void setDepartment(String department) {
+    public void setDepartment(String department) throws Exception {
+        if(department.isBlank()) {
+            throw new Exception("Department must be one of the options: Business, Human Resources or Technical.");
+        } else if(!department.equals("Business") && !department.equals("Human Resources") && !department.equals("Technical")){
+            throw new Exception("Department must be one of the options: Business, Human Resources or Technical.");
+        }
         this.department = department;
     }
 
